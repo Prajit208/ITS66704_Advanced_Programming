@@ -1,9 +1,15 @@
 package gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginForm {
     @FXML
@@ -25,7 +31,46 @@ public class LoginForm {
             return;
         }
 
-        // placeholder: authentication
+        // Authentication method call here
 
+    }
+// temporary access button to view admin dashboard
+    @FXML
+    private void handleTempAdminAccess() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDashboard.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 500));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // temporary access button to view what student would see
+    @FXML
+    private void handleDevStudent() {
+        goToResourceListing("STUDENT");
+    }
+    // temporary access button to view what student would see
+    @FXML
+    private void handleDevStaff() {
+        goToResourceListing("STAFF");
+    }
+
+    private void goToResourceListing(String role) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ResourceListingForm.fxml"));
+            Parent root = loader.load();
+
+            ResourceListingForm controller = loader.getController();
+            controller.setCurrentUserRole(role);
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 500));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

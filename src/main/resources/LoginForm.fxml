@@ -33,7 +33,18 @@
             <Label fx:id="errorLabel" textFill="red" wrapText="true" />
 
             <Button fx:id="btnLogin" onAction="#handleLogin" prefWidth="120" style="-fx-background-color:#1565C0; -fx-text-fill:white;" text="Login" />
+            <Button fx:id="btnTempAdmin" text="[TEMPORARY] Go to Admin Dashboard"
+                    onAction="#handleTempAdminAccess"
+                    layoutX="330" layoutY="300" prefWidth="200"
+                    style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px;"/>
 
+            <Button text="[TEMPORARY] Login as Student" onAction="#handleDevStudent"
+                    layoutX="330" layoutY="330" prefWidth="200"
+                    style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px;"/>
+
+            <Button text="[TEMPORARY] Login as Staff" onAction="#handleDevStaff"
+                    layoutX="330" layoutY="360" prefWidth="200"
+                    style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px;"/>
         </VBox>
 
 
