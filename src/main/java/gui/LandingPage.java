@@ -1,34 +1,33 @@
-
 package gui;
 
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class LandingPage {
-    public void show(Stage primaryStage) {
-        // Main Text
-        Label title = new Label("Campus Resource Booking System");
-        title.setStyle("-fx-font-size: 26px; -fx-font-weight: bold;");
-        // Sub Text
-        Label subtitle = new Label("Book study rooms, labs, and other resources");
-        // Login redirect button or get started button that redirects to login or register page
-        Button getStartedButton = new Button("Get Started");
-        getStartedButton.setOnAction(e -> {
-            LoginForm loginform= new LoginForm();
-            // access login method in LoginForm class
-            loginform.login(primaryStage);
-        });
 
-        VBox root = new VBox(20, title, subtitle, getStartedButton);
-        root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-padding: 50px;");
+    @FXML
+    private void handleGetStarted() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
+            Parent root = loader.load();
 
-        primaryStage.setTitle("Campus Booking System");
-        primaryStage.setScene(new Scene(root, 500, 400));
-        primaryStage.show();
+            Stage stage = (Stage) btnGetStartedStage();
+            stage.setScene(new Scene(root, 500, 500));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // helper to get the current Stage from any node on this screen
+    @FXML
+    private javafx.scene.control.Button btnGetStarted;
+
+    private javafx.stage.Window btnGetStartedStage() {
+        return btnGetStarted.getScene().getWindow();
     }
 }

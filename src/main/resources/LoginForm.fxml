@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginForm">
+
+    <children>
+        <VBox alignment="CENTER" layoutX="200.0" layoutY="60.0" prefWidth="400.0" spacing="15">
+
+            <padding>
+                <Insets bottom="25" left="30" right="30" top="25" />
+            </padding>
+
+            <Label text="Login Form">
+                <font>
+                    <Font name="Arial Bold" size="24" />
+                </font>
+            </Label>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label minWidth="80" text="Username" />
+                <TextField fx:id="usernameField" prefWidth="250" promptText="Username" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label minWidth="80" text="Password" />
+                <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="309.0" promptText="Password" />
+            </HBox>
+
+            <Label fx:id="errorLabel" textFill="red" wrapText="true" />
+
+            <Button fx:id="btnLogin" onAction="#handleLogin" prefWidth="120" style="-fx-background-color:#1565C0; -fx-text-fill:white;" text="Login" />
+
+        </VBox>
+
+
+
+
+
+    </children>
+</AnchorPane>
