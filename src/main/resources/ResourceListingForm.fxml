@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.ResourceListingForm"
+            prefHeight="500.0" prefWidth="800.0">
+
+    <Label text="Browse Resources" layoutX="320" layoutY="20" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <Label text="Type" layoutX="30" layoutY="70"/>
+    <ComboBox fx:id="typeFilter" layoutX="30" layoutY="90" prefWidth="150" promptText="All Types"/>
+
+    <Label text="Location" layoutX="200" layoutY="70"/>
+    <TextField fx:id="locationFilter" layoutX="200" layoutY="90" prefWidth="150" promptText="Any location"/>
+
+    <CheckBox fx:id="availableOnlyCheck" text="Available only" layoutX="370" layoutY="93"/>
+
+    <Button fx:id="btnSearch" text="Search" onAction="#handleSearch" layoutX="540" layoutY="90" prefWidth="100"/>
+
+    <TableView fx:id="resourceTable" layoutX="30" layoutY="140" prefWidth="740" prefHeight="260">
+        <columns>
+            <TableColumn fx:id="colResourceId" text="Resource ID" prefWidth="100"/>
+            <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+            <TableColumn fx:id="colLocation" text="Location" prefWidth="150"/>
+            <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="90"/>
+            <TableColumn fx:id="colAvailability" text="Availability" prefWidth="100"/>
+            <TableColumn fx:id="colRules" text="Booking Rules" prefWidth="180"/>
+        </columns>
+    </TableView>
+
+    <Button fx:id="btnBook" text="Book Selected Resource" onAction="#handleBookResource"
+            layoutX="30" layoutY="420" prefWidth="200"
+            style="-fx-background-color:#1565C0; -fx-text-fill:white;"/>
+
+    <Button fx:id="btnMyBookings" text="View My Bookings" onAction="#handleMyBookings"
+            layoutX="250" layoutY="420" prefWidth="180"/>
+
+    <Button fx:id="btnBack" text="Back" onAction="#handleBack" layoutX="650" layoutY="420" prefWidth="100"/>
+
+</AnchorPane>

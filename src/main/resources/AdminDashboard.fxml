@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.AdminDashboard"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminDashboard">
+
+    <Label layoutX="320" layoutY="30" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Admin Dashboard" />
+
+    <Label fx:id="welcomeLabel" layoutX="330" layoutY="70" text="Welcome, Admin" />
+
+    <Button fx:id="btnSearchResources" layoutX="60" layoutY="130" onAction="#handleSearchResources" prefHeight="60" prefWidth="211.0" text="Search and Browse Resources" wrapText="true" />
+
+    <Button fx:id="btnManageResources" layoutX="300" layoutY="130" onAction="#handleManageResources" prefHeight="60" prefWidth="220" text="Manage Resources (Add/Edit/Remove)" wrapText="true" />
+
+    <Button fx:id="btnViewBookings" layoutX="540" layoutY="130" onAction="#handleViewBookings" prefHeight="60" prefWidth="220" text="View All Booking Requests" wrapText="true" />
+
+    <Button fx:id="btnManageUsers" layoutX="60" layoutY="220" onAction="#handleManageUsers" prefHeight="60" prefWidth="220" text="Manage User Accounts" wrapText="true" />
+
+    <Button fx:id="btnViewLogs" layoutX="300" layoutY="220" onAction="#handleViewLogs" prefHeight="60" prefWidth="220" text="View System Logs" wrapText="true" />
+
+    <Button fx:id="btnLogout" layoutX="540" layoutY="220" onAction="#handleLogout" prefHeight="60" prefWidth="220" style="-fx-background-color:#B71C1C; -fx-text-fill:white;" text="Logout" textFill="#b21e1e" />
 
 </AnchorPane>

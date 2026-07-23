@@ -2,30 +2,43 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 public class AdminDashboard {
-    @FXML
-    private TextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    private Label welcomeLabel;
 
     @FXML
-    private Label errorLabel;
+    private void handleSearchResources() {
+        //load ResourceListingForm.fxml here
+    }
 
     @FXML
-    private void handleLogin() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+    private void handleManageResources() {
+        // popen resource add/edit/remove screen
+        // calls ResourceManager.addResource(), removeResource(), etc.
+    }
 
-        if (username.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Please enter both username and password");
-            return;
-        }
+    @FXML
+    private void handleViewBookings() {
+        // show list of all bookings
+        // calls BookingManager.getAllBookings()
+    }
 
-        // placeholder: authentication
+    @FXML
+    private void handleManageUsers() {
+        // open user account management screen
+        // calls UserManager.createAccount(), editAccount(), etc.
+    }
 
+    @FXML
+    private void handleViewLogs() {
+        //show system log contents
+        // calls SystemLogger.getLogs()
+    }
+
+    @FXML
+    private void handleLogout() {
+        // return to LoginForm.fxml
     }
 }
