@@ -58,14 +58,14 @@
                     <font><Font size="13.0" /></font>
                 </Button>
 
+
                 <!-- Staff only, hidden by default -->
-                <Button fx:id="btnManageBookings" onAction="#handleManageBookings" text="Manage Bookings"
+                <Button fx:id="btnManageBookings" onAction="#handleManageBookings" text="View Booking Requests"
                         alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
-                        visible="false" managed="false"
+                        visible="true" managed="true"
                         style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
                     <font><Font size="13.0" /></font>
                 </Button>
-
                 <Region VBox.vgrow="ALWAYS" />
 
                 <Separator style="-fx-background-color: #C24A56;">

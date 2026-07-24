@@ -7,30 +7,21 @@ import javafx.scene.control.Label;
 public class UserDashboard {
 
     @FXML private Label welcomeLabel;
-    @FXML private Button btnManageBookings;
     @FXML private Label statUpcoming;
     @FXML private Label statPending;
     @FXML private Label statTotal;
+    @FXML private Button btnManageBookings;
 
-    // TODO: this should come from AuthManager once login is real
-    private String currentUserRole = "STUDENT";
+    // TODO: replace with real role from AuthManager once login is wired up
+    private String currentUserRole = "STAFF";
 
-    public void setCurrentUserRole(String role) {
-        this.currentUserRole = role;
-        roleCheck();
-    }
-
-    private void roleCheck() {
-        welcomeLabel.setText("Welcome, " + currentUserRole.charAt(0)
-                + currentUserRole.substring(1).toLowerCase());
-
+    @FXML
+    public void initialize() {
         if (currentUserRole.equals("STAFF")) {
             btnManageBookings.setVisible(true);
             btnManageBookings.setManaged(true);
         }
-
-        // placeholder: BookingManager.getBookingsForUser(currentUserId) once real,
-        // then set statUpcoming/statPending/statTotal from actual counts
+        // placeholder: load stats and recent bookings here
     }
 
     @FXML
@@ -40,26 +31,29 @@ public class UserDashboard {
 
     @FXML
     private void handleBookNow() {
-        // placeholder: navigate to ResourceListingForm (or BookingForm directly)
+        // placeholder: navigate to BookingForm
     }
 
     @FXML
     private void handleViewBookings() {
-        // placeholder: navigate to BookingForm
+        // placeholder: BookingManager.getBookingsForUser(currentUserId)
     }
 
     @FXML
     private void handleCancelRequest() {
-        // placeholder: navigate to BookingForm
+        // placeholder: BookingManager.cancelBooking(bookingId, currentUser)
     }
 
     @FXML
     private void handleManageBookings() {
-        // placeholder: navigate to BookingForm (staff view)
+        // placeholder: navigate to a screen listing all Student bookings
+        // pending approval, with Approve/Reject buttons per row
+        // calls BookingManager.approveBooking(bookingId, currentUser)
+        // or BookingManager.rejectBooking(bookingId, currentUser)
     }
 
     @FXML
     private void handleLogout() {
-        // placeholder: navigate to LoginForm
+        // placeholder: navigate back to LoginForm
     }
 }
