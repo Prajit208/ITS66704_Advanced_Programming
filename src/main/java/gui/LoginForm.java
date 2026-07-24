@@ -34,6 +34,25 @@ public class LoginForm {
         // Authentication method call here
 
     }
+    // Opens the registration screen
+    @FXML
+    private void handleRegister() {
+        try {
+            // Adjust the path below if RegisterForm.fxml is inside a subfolder (e.g., "/gui/RegisterForm.fxml")
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/RegisterForm.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root, 700, 520));
+            stage.setTitle("Register");
+        } catch (IOException e) {
+            e.printStackTrace();
+            if (errorLabel != null) {
+                errorLabel.setText("Could not load registration page.");
+            }
+        }
+    }
+
 // temporary access button to view admin dashboard
     @FXML
     private void handleTempAdminAccess() {

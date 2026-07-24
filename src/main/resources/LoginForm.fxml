@@ -1,55 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginForm">
+<AnchorPane prefHeight="620.0" prefWidth="700.0" style="-fx-background-color: #F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.LoginForm">
 
     <children>
-        <VBox alignment="CENTER" layoutX="200.0" layoutY="60.0" prefWidth="400.0" spacing="15">
+        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="380.0" minWidth="320.0"
+                      prefWidth="350.0" spacing="16.0"
+                      style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #E2E8F0; -fx-border-radius: 10;"
+                      StackPane.alignment="CENTER">
+                    <padding>
+                        <Insets bottom="28.0" left="32.0" right="32.0" top="32.0" />
+                    </padding>
 
-            <padding>
-                <Insets bottom="25" left="30" right="30" top="25" />
-            </padding>
+                    <VBox alignment="CENTER" spacing="4.0">
+                        <Label text="Welcome Back">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label text="Please sign in to continue" textFill="#718096">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                    </VBox>
 
-            <Label text="Login Form">
-                <font>
-                    <Font name="Arial Bold" size="24" />
-                </font>
-            </Label>
+                    <VBox spacing="14.0">
+                        <padding>
+                            <Insets top="8.0" />
+                        </padding>
 
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label minWidth="80" text="Username" />
-                <TextField fx:id="usernameField" prefWidth="250" promptText="Username" />
-            </HBox>
+                        <VBox spacing="6.0">
+                            <Label text="Username" textFill="#4A5568">
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="usernameField" prefHeight="38.0" promptText="Enter your username"
+                                       style="-fx-background-radius: 6; -fx-border-color: #E2E8F0; -fx-border-radius: 6; -fx-background-color: #FFFFFF; -fx-padding: 8;" />
+                        </VBox>
 
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label minWidth="80" text="Password" />
-                <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="309.0" promptText="Password" />
-            </HBox>
+                        <VBox spacing="6.0">
+                            <Label text="Password" textFill="#4A5568">
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </Label>
+                            <PasswordField fx:id="passwordField" prefHeight="38.0" promptText="Enter your password"
+                                           style="-fx-background-radius: 6; -fx-border-color: #E2E8F0; -fx-border-radius: 6; -fx-background-color: #FFFFFF; -fx-padding: 8;" />
+                        </VBox>
+                    </VBox>
 
-            <Label fx:id="errorLabel" textFill="red" wrapText="true" />
+                    <Label fx:id="errorLabel" textFill="#E53E3E" wrapText="true">
+                        <font>
+                            <Font size="12.0" />
+                        </font>
+                    </Label>
 
-            <Button fx:id="btnLogin" onAction="#handleLogin" prefWidth="120" style="-fx-background-color:#1565C0; -fx-text-fill:white;" text="Login" />
-            <Button fx:id="btnTempAdmin" text="[TEMPORARY] Go to Admin Dashboard"
-                    onAction="#handleTempAdminAccess"
-                    layoutX="330" layoutY="300" prefWidth="200"
-                    style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px;"/>
+                    <Button fx:id="btnLogin" defaultButton="true" onAction="#handleLogin" prefHeight="40.0" prefWidth="286.0"
+                            style="-fx-background-color: #A61B29; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
+                            text="Sign In">
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </Button>
 
-            <Button text="[TEMPORARY] Login as Student" onAction="#handleDevStudent"
-                    layoutX="330" layoutY="330" prefWidth="200"
-                    style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px;"/>
+                    <HBox alignment="CENTER" spacing="6.0">
+                        <Label text="Don't have an account?" textFill="#718096">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="btnRegister" onAction="#handleRegister"
+                                style="-fx-background-color: transparent; -fx-text-fill: #A61B29; -fx-padding: 0; -fx-cursor: hand;"
+                                text="Create one">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </Button>
+                    </HBox>
 
-            <Button text="[TEMPORARY] Login as Staff" onAction="#handleDevStaff"
-                    layoutX="330" layoutY="360" prefWidth="200"
-                    style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px;"/>
-        </VBox>
+                    <!-- DEV ONLY — remove before final submission/demo -->
+                    <Separator>
+                        <VBox.margin>
+                            <Insets top="6.0" bottom="2.0" />
+                        </VBox.margin>
+                    </Separator>
 
+                    <Label text="[DEV] Quick Access" textFill="#A0AEC0">
+                        <font>
+                            <Font size="10.0" />
+                        </font>
+                    </Label>
 
+                    <Button text="[DEV] Admin Dashboard" onAction="#handleTempAdminAccess"
+                            prefHeight="30.0" prefWidth="286.0"
+                            style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px; -fx-background-radius: 6; -fx-cursor: hand;" />
 
+                    <Button text="[DEV] Login as Student" onAction="#handleDevStudent"
+                            prefHeight="30.0" prefWidth="286.0"
+                            style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px; -fx-background-radius: 6; -fx-cursor: hand;" />
 
+                    <Button text="[DEV] Login as Staff" onAction="#handleDevStaff"
+                            prefHeight="30.0" prefWidth="286.0"
+                            style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px; -fx-background-radius: 6; -fx-cursor: hand;" />
 
+                </VBox>
+            </children>
+        </StackPane>
     </children>
 </AnchorPane>
