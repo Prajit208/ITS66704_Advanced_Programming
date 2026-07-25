@@ -1,11 +1,16 @@
 package manager;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.CSVWriter;
 import model.User;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class PersistenceManager {
     private static final String USER_FILE = "data/users.csv";
@@ -18,6 +23,7 @@ public class PersistenceManager {
 
 
             writer.writeNext(new String[]{
+                    user.getUserID().toString(),
                     user.getName(),
                     user.getUsername(),
                     user.getPasswordHash(),
@@ -50,6 +56,7 @@ public class PersistenceManager {
 
 
                 writer.writeNext(new String[]{
+                        "User ID",
                         "Full Name",
                         "Username",
                         "Password Hash",
@@ -59,6 +66,7 @@ public class PersistenceManager {
 
 
                 writer.writeNext(new String[]{
+                        UUID.randomUUID().toString(),
                         "System Admin",
                         "admin",
                         AuthManager.hash("admin123"),
@@ -68,6 +76,7 @@ public class PersistenceManager {
 
 
                 writer.writeNext(new String[]{
+                        UUID.randomUUID().toString(),
                         "Main Admin",
                         "admin2",
                         AuthManager.hash("admin456"),
@@ -80,5 +89,43 @@ public class PersistenceManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Loading the users
+    public ArrayList<User> loadUsers() {
+        ArrayList<User> users = new ArrayList<>();
+
+        File file = new File(USER_FILE);
+
+        if (!file.exists()) {
+            return users;
+        }
+
+        try (CSVReader reader = new CSVReader(new FileReader(file))) {
+
+            String[] line;
+
+            // Skip the header row
+            reader.readNext();
+
+            while ((line = reader.readNext()) != null) {
+
+                User user = new User(
+                        UUID.fromString(line[0]),     // User ID
+                        line[1],                      // Full Name
+                        line[2],                      // Username
+                        line[3],                      // Password Hash
+                        line[4],                      // Email
+                        User.Role.valueOf(line[5])    // Role
+                );
+
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 }
