@@ -45,7 +45,7 @@ public class RegisterForm {
     private void handleBack() {
         try {
             //Gets the log in form fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
             //reads and loads the fxml file
             Parent root = loader.load();
             // returns the scene that contains btnBack and  the Window displaying the scene  and
