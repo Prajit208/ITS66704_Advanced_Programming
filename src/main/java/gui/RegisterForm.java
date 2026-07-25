@@ -33,25 +33,39 @@ public class RegisterForm {
     private Label messageLabel;
 
     @FXML
-    private Button btnBack;
+    private Hyperlink btnBack;
 
     // adds new user to the application data if it is valid
     @FXML
     private void handleRegister() {
-        // Registration logic here
+        try {
+            // redirection to login page logic
+            //Gets the log in form fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
+            //reads and loads the fxml file
+            Parent root = loader.load();
+            // returns the scene that contains btnBack and  the Window displaying the scene  and
+            // casts the window into Scene
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            stage.setScene(new Scene(root ,500, 500));
+            stage.setTitle("Login");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     // used to go back to log in if the user already has the account
     @FXML
     private void handleBack() {
         try {
             //Gets the log in form fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
             //reads and loads the fxml file
             Parent root = loader.load();
             // returns the scene that contains btnBack and  the Window displaying the scene  and
             // casts the window into Scene
             Stage stage = (Stage) btnBack.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root ,500, 500));
             stage.setTitle("Login");
 
         } catch (IOException e) {

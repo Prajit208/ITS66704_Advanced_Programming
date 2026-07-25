@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0"
-            xmlns="http://javafx.com/javafx/26"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gui.RegisterForm"
             style="-fx-background-color:#F4F6F8;">
@@ -90,6 +90,7 @@
                                -fx-cursor:hand;"/>
 
                 <Hyperlink text="Already have an account? Login"
+                           fx:id="btnBack"
                            onAction="#handleBack"
                            style="-fx-text-fill:#A61B29;"/>
 
