@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.RegisterForm"
+            style="-fx-background-color:#F4F6F8;">
+
+    <children>
+
+        <StackPane AnchorPane.topAnchor="0.0"
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0">
+
+            <VBox alignment="CENTER"
+                  prefWidth="360"
+                  prefHeight="500"
+                  maxWidth="360"
+                  maxHeight="500"
+                  spacing="12"
+                  fillWidth="true"
+                  style="-fx-background-color:white;
+                         -fx-background-radius:12;
+                         -fx-padding:30;
+                         -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.15),15,0,0,5);">
+
+                <Label text="CampusConnect"
+                       style="-fx-font-size:28px;
+              -fx-font-weight:bold;
+              -fx-text-fill:#A61B29;"/>
+
+                <Label text="Create Your Account"
+                       style="-fx-font-size:16px;
+              -fx-text-fill:#666;"/>
+
+                <Label text="Join the campus community"
+                       style="-fx-font-size:12px;
+              -fx-text-fill:#999;"/>
+
+                <Separator/>
+
+                <TextField fx:id="fullNameField"
+                           promptText="Full Name"
+                           prefHeight="40"
+                           maxWidth="300"/>
+
+                <TextField fx:id="usernameField"
+                           promptText="Username"
+                           prefHeight="40"
+                           maxWidth="300"/>
+
+                <TextField fx:id="emailField"
+                           promptText="Email Address"
+                           prefHeight="40"
+                           maxWidth="300"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="Password"
+                               prefHeight="40"
+                               maxWidth="300"/>
+
+                <PasswordField fx:id="confirmPasswordField"
+                               promptText="Confirm Password"
+                               prefHeight="40"
+                               maxWidth="300"/>
+
+                <ComboBox fx:id="roleComboBox"
+                          promptText="Select Role"
+                          prefHeight="40"
+                          maxWidth="300"/>
+
+                <Label fx:id="messageLabel"
+                       textFill="#E53E3E"
+                       wrapText="true"
+                       maxWidth="300"/>
+
+                <Button fx:id="btnRegister"
+                        text="Register"
+                        onAction="#handleRegister"
+                        prefHeight="40"
+                        maxWidth="300"
+                        style="-fx-background-color:#A61B29;
+                               -fx-text-fill:white;
+                               -fx-font-weight:bold;
+                               -fx-background-radius:6;
+                               -fx-cursor:hand;"/>
+
+                <Hyperlink text="Already have an account? Login"
+                           onAction="#handleBack"
+                           style="-fx-text-fill:#A61B29;"/>
+
+            </VBox>
+
+        </StackPane>
+
+    </children>
+
+</AnchorPane>
