@@ -1,11 +1,11 @@
 package manager;
 
-import com.opencsv.CSVWriter;
 
 import model.User;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+
 
 public class AuthManager {
     private static final Argon2 argon2 =
@@ -20,7 +20,6 @@ public class AuthManager {
         try{
 
             String hashedPassword = hash(password);
-
             User user = new User(
                     fullName,
                     username,

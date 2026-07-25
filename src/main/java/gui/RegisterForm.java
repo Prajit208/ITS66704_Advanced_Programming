@@ -11,11 +11,14 @@ import javafx.stage.Stage;
 import manager.AuthManager;
 import model.User;
 import utility.Validator;
+import java.util.ArrayList;
+import manager.PersistenceManager;
 
 
 
 public class RegisterForm {
-
+    private ArrayList<User> users = new ArrayList<>();
+    private final PersistenceManager load =  new PersistenceManager();
     @FXML
     private TextField fullNameField;
 
@@ -68,7 +71,8 @@ public class RegisterForm {
                 username,
                 email,
                 password,
-                confirmPassword
+                confirmPassword,
+                users
         );
 
 
@@ -131,5 +135,8 @@ public class RegisterForm {
     @FXML
     public void initialize() {
         roleComboBox.getItems().addAll("Student", "Staff");
+        System.out.println("RegisterForm initialized");
+        users = load.loadUsers();
+        System.out.println("Number of users: " + users.size());
     }
 }

@@ -8,10 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import manager.PersistenceManager;
+import model.User;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
 public class LoginForm {
+    private ArrayList<User> users = new ArrayList<>();
+    private final PersistenceManager load =  new PersistenceManager();
     @FXML
     private TextField usernameField;
 
@@ -20,6 +25,13 @@ public class LoginForm {
 
     @FXML
     private Label errorLabel;
+
+    @FXML
+    public void initialize() {
+        System.out.println("LoginForm initialized");
+        users = load.loadUsers();
+        System.out.println("Number of users: " + users.size());
+    }
 
     @FXML
     private void handleLogin() {

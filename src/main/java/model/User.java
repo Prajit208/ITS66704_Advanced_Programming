@@ -1,5 +1,7 @@
 package model;
+import java.util.UUID;
 public class User {
+    private UUID userID;
     private String fullName;
     private String username;
     private String passwordHash;
@@ -12,15 +14,31 @@ public class User {
         Admin
     }
 
-    public User() {
-    }
-
-    public User(String fullName, String username, String passwordHash, String email, Role role) {
+    // Constructor for creating a NEW user
+    public User(String fullName, String username,
+                String passwordHash, String email, Role role) {
+        this.userID = UUID.randomUUID(); // Automatically generate ID
         this.fullName = fullName;
         this.username = username;
         this.passwordHash = passwordHash;
         this.email = email;
         this.role = role;
+    }
+
+    // Constructor for LOADING a user from the CSV
+    public User(UUID userID, String fullName,
+                String username, String passwordHash,
+                String email, Role role) {
+        this.userID = userID; // Use the existing ID from the CSV
+        this.fullName = fullName;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.email = email;
+        this.role = role;
+    }
+
+    public UUID getUserID() {
+        return userID;
     }
 
     // Getter and Setter for fullName
@@ -68,7 +86,4 @@ public class User {
         this.role = role;
     }
 
-    public void register(){
-        
-    }
 }

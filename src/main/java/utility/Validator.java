@@ -1,6 +1,9 @@
 package utility;
 
+import model.User;
+
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class Validator {
 
@@ -16,7 +19,9 @@ public class Validator {
             String username,
             String email,
             String password,
-            String confirmPassword) {
+            String confirmPassword,
+            ArrayList<User> users
+            ) {
 
         if (isEmpty(fullName)) {
             return "Name is required";
@@ -24,6 +29,14 @@ public class Validator {
 
         if (!isValidUsername(username)) {
             return "Username must be 3-20 characters";
+        }
+
+        if (usernameExists(username, users)) {
+            return "Username already exists";
+        }
+
+        if (emailExists(email, users)) {
+            return "Email already exists";
         }
 
         if (!isValidEmail(email)) {
@@ -67,5 +80,31 @@ public class Validator {
     public static boolean passwordsMatch(String password, String confirmPassword) {
         return password != null &&
                 password.equals(confirmPassword);
+    }
+// Checks whether the username is already taken
+    public static boolean usernameExists(String username, ArrayList<User> users) {
+        if (users == null) {
+            return false;
+        }
+
+        for (User user : users) {
+            if (user.getUsername().equalsIgnoreCase(username.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+// Checks if the same email exists
+    public static boolean emailExists(String email, ArrayList<User> users) {
+        if (users == null) {
+            return false;
+        }
+
+        for (User user : users) {
+            if (user.getEmail().equalsIgnoreCase(email.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
