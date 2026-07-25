@@ -1,46 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.ResourceListingForm"
-            prefHeight="500.0" prefWidth="800.0">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.ResourceListingForm">
 
-    <Label text="Browse Resources" layoutX="320" layoutY="20" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    <children>
+        <VBox spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <padding>
+                <Insets top="30.0" bottom="30.0" left="40.0" right="40.0" />
+            </padding>
 
-    <Label text="Type" layoutX="30" layoutY="70"/>
-    <ComboBox fx:id="typeFilter" layoutX="30" layoutY="90" prefWidth="150" promptText="All Types"/>
+            <VBox spacing="4.0">
+                <Label text="Browse Resources">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Label text="Search and book available study rooms, labs, and spaces" textFill="#718096">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+            </VBox>
 
-    <Label text="Location" layoutX="200" layoutY="70"/>
-    <TextField fx:id="locationFilter" layoutX="200" layoutY="90" prefWidth="150" promptText="Any location"/>
+            <HBox alignment="CENTER_LEFT" spacing="16.0"
+                  style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                <padding>
+                    <Insets top="16.0" bottom="16.0" left="20.0" right="20.0" />
+                </padding>
 
-    <CheckBox fx:id="availableOnlyCheck" text="Available only" layoutX="370" layoutY="93"/>
+                <VBox spacing="4.0">
+                    <Label text="Type" textFill="#4A5568">
+                        <font><Font name="System Bold" size="11.0" /></font>
+                    </Label>
+                    <ComboBox fx:id="typeFilter" prefWidth="160" promptText="All Types" />
+                </VBox>
 
-    <Button fx:id="btnSearch" text="Search" onAction="#handleSearch" layoutX="540" layoutY="90" prefWidth="100"/>
+                <VBox spacing="4.0">
+                    <Label text="Location" textFill="#4A5568">
+                        <font><Font name="System Bold" size="11.0" /></font>
+                    </Label>
+                    <TextField fx:id="locationFilter" prefWidth="180" promptText="Any location"
+                               style="-fx-background-radius: 6; -fx-border-color: #E2E8F0; -fx-border-radius: 6;" />
+                </VBox>
 
-    <TableView fx:id="resourceTable" layoutX="30" layoutY="140" prefWidth="740" prefHeight="260">
-        <columns>
-            <TableColumn fx:id="colResourceId" text="Resource ID" prefWidth="100"/>
-            <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
-            <TableColumn fx:id="colLocation" text="Location" prefWidth="150"/>
-            <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="90"/>
-            <TableColumn fx:id="colAvailability" text="Availability" prefWidth="100"/>
-            <TableColumn fx:id="colRules" text="Booking Rules" prefWidth="180"/>
-        </columns>
-    </TableView>
+                <CheckBox fx:id="availableOnlyCheck" text="Available only" textFill="#4A5568">
+                    <VBox.margin>
+                        <Insets top="18.0" />
+                    </VBox.margin>
+                </CheckBox>
 
-    <Button fx:id="btnBook" text="Book Selected Resource" onAction="#handleBookResource"
-            layoutX="30" layoutY="420" prefWidth="200"
-            style="-fx-background-color:#1565C0; -fx-text-fill:white;"/>
+                <Region HBox.hgrow="ALWAYS" />
 
-    <Button fx:id="btnMyBookings" text="View My Bookings" onAction="#handleMyBookings"
-            layoutX="250" layoutY="420" prefWidth="180"/>
+                <Button fx:id="btnSearch" text="Search" onAction="#handleSearch" prefHeight="38.0" prefWidth="110"
+                        style="-fx-background-color: #A61B29; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;">
+                    <font><Font name="System Bold" size="12.0" /></font>
+                </Button>
+            </HBox>
 
-    <Button fx:id="btnBack" text="Back" onAction="#handleBack" layoutX="650" layoutY="420" prefWidth="100"/>
+            <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"
+                  VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="8.0" bottom="8.0" left="8.0" right="8.0" />
+                </padding>
 
+                <TableView fx:id="resourceTable" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                    <columns>
+                        <TableColumn fx:id="colResourceId" text="Resource ID" prefWidth="100" />
+                        <TableColumn fx:id="colType" text="Type" prefWidth="120" />
+                        <TableColumn fx:id="colLocation" text="Location" prefWidth="150" />
+                        <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="90" />
+                        <TableColumn fx:id="colAvailability" text="Availability" prefWidth="110" />
+                        <TableColumn fx:id="colRules" text="Booking Rules" prefWidth="200" />
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="14.0">
+                <Button fx:id="btnBook" text="Book Selected Resource" onAction="#handleBookResource"
+                        prefHeight="42.0" prefWidth="220"
+                        style="-fx-background-color: #A61B29; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;">
+                    <font><Font name="System Bold" size="13.0" /></font>
+                </Button>
+
+                <Button fx:id="btnMyBookings" text="Manage My Bookings" onAction="#handleMyBookings"
+                        prefHeight="42.0" prefWidth="180"
+                        style="-fx-background-color: #FFFFFF; -fx-text-fill: #A61B29; -fx-background-radius: 6; -fx-border-color: #A61B29; -fx-border-radius: 6; -fx-cursor: hand;">
+                    <font><Font name="System Bold" size="13.0" /></font>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="btnBack" text="Back" onAction="#handleBack" prefHeight="42.0" prefWidth="100"
+                        style="-fx-background-color: transparent; -fx-text-fill: #718096; -fx-border-color: #E2E8F0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-cursor: hand;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+            </HBox>
+
+        </VBox>
+    </children>
 </AnchorPane>

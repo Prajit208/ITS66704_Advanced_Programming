@@ -4,39 +4,49 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0"
-            style="-fx-background-color: linear-gradient(to bottom, #E3F2FD, #BBDEFB);"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #A61B29, #7A1420);"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gui.LandingPage">
 
     <children>
+        <StackPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" maxWidth="600.0" spacing="24.0" StackPane.alignment="CENTER">
 
-        <VBox alignment="CENTER" layoutX="200.0" layoutY="150.0" prefWidth="400.0" spacing="20">
+                    <Label text="Campus Resource Booking System" textFill="white"
+                           textAlignment="CENTER" wrapText="true">
+                        <font>
+                            <Font name="System Bold" size="38.0" />
+                        </font>
+                    </Label>
 
-            <padding>
-                <Insets top="25" right="30" bottom="25" left="30"/>
-            </padding>
+                    <Label text="Book study rooms, labs, and event spaces with ease"
+                           textFill="#C9A876" textAlignment="CENTER" wrapText="true">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="10.0" />
+                        </VBox.margin>
+                    </Label>
 
-            <Label text="Campus Resource Booking System">
-                <font>
-                    <Font name="Arial Bold" size="26"/>
-                </font>
-            </Label>
+                    <Button fx:id="btnGetStarted" onAction="#handleGetStarted" prefHeight="48.0" prefWidth="220.0"
+                            style="-fx-background-color: #FFFFFF; -fx-text-fill: #A61B29; -fx-background-radius: 24; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 6);"
+                            text="Get Started">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Button>
 
-            <Label text="Book study rooms, labs, and event spaces with ease" wrapText="true">
-                <font>
-                    <Font size="14"/>
-                </font>
-            </Label>
-
-            <Button fx:id="btnGetStarted" onAction="#handleGetStarted" prefWidth="180" style="-fx-background-color:#1565C0; -fx-text-fill:white;" text="Get Started"/>
-
-        </VBox>
-
+                </VBox>
+            </children>
+        </StackPane>
     </children>
 
 </AnchorPane>

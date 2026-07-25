@@ -1,24 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminDashboard">
+<AnchorPane prefHeight="600.0" prefWidth="950.0" style="-fx-background-color: #F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.AdminDashboard">
 
-    <Label layoutX="320" layoutY="30" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Admin Dashboard" />
+    <children>
+        <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
-    <Label fx:id="welcomeLabel" layoutX="330" layoutY="70" text="Welcome, Admin" />
+            <VBox prefWidth="230.0" spacing="4.0"
+                  style="-fx-background-color: #1A1A1A;">
+                <padding>
+                    <Insets top="28.0" bottom="20.0" left="18.0" right="18.0" />
+                </padding>
 
-    <Button fx:id="btnSearchResources" layoutX="60" layoutY="130" onAction="#handleSearchResources" prefHeight="60" prefWidth="211.0" text="Search and Browse Resources" wrapText="true" />
+                <Label text="Admin Panel" textFill="white">
+                    <font><Font name="System Bold" size="18.0" /></font>
+                    <VBox.margin><Insets bottom="8.0" /></VBox.margin>
+                </Label>
 
-    <Button fx:id="btnManageResources" layoutX="300" layoutY="130" onAction="#handleManageResources" prefHeight="60" prefWidth="220" text="Manage Resources (Add/Edit/Remove)" wrapText="true" />
+                <Label fx:id="welcomeLabel" text="Welcome, Admin" textFill="#C9A876">
+                    <font><Font size="12.0" /></font>
+                    <VBox.margin><Insets bottom="20.0" /></VBox.margin>
+                </Label>
 
-    <Button fx:id="btnViewBookings" layoutX="540" layoutY="130" onAction="#handleViewBookings" prefHeight="60" prefWidth="220" text="View All Booking Requests" wrapText="true" />
+                <Button fx:id="btnSearchResources" onAction="#handleSearchResources" text="Search &amp; Browse Resources"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #D0D0D0; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
 
-    <Button fx:id="btnManageUsers" layoutX="60" layoutY="220" onAction="#handleManageUsers" prefHeight="60" prefWidth="220" text="Manage User Accounts" wrapText="true" />
+                <Button fx:id="btnManageResources" onAction="#handleManageResources" text="Manage Resources"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #D0D0D0; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
 
-    <Button fx:id="btnViewLogs" layoutX="300" layoutY="220" onAction="#handleViewLogs" prefHeight="60" prefWidth="220" text="View System Logs" wrapText="true" />
+                <Button fx:id="btnViewBookings" onAction="#handleViewBookings" text="Booking Requests"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #D0D0D0; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
 
-    <Button fx:id="btnLogout" layoutX="540" layoutY="220" onAction="#handleLogout" prefHeight="60" prefWidth="220" style="-fx-background-color:#B71C1C; -fx-text-fill:white;" text="Logout" textFill="#b21e1e" />
+                <Button fx:id="btnManageUsers" onAction="#handleManageUsers" text="User Accounts"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #D0D0D0; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
 
+                <Button fx:id="btnViewLogs" onAction="#handleViewLogs" text="System Logs"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #D0D0D0; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Separator style="-fx-background-color: #333333;">
+                    <VBox.margin><Insets top="10.0" bottom="10.0" /></VBox.margin>
+                </Separator>
+
+                <Button fx:id="btnLogout" onAction="#handleLogout" text="Logout"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #EF5350; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font name="System Bold" size="13.0" /></font>
+                </Button>
+            </VBox>
+
+            <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets top="40.0" left="50.0" right="50.0" />
+                </padding>
+
+                <Label text="Dashboard">
+                    <font><Font name="System Bold" size="26.0" /></font>
+                </Label>
+
+                <Label text="Select an option from the left to get started" textFill="#718096">
+                    <font><Font size="13.0" /></font>
+                </Label>
+            </VBox>
+
+        </HBox>
+    </children>
 </AnchorPane>

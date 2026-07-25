@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="950.0" style="-fx-background-color: #F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.UserDashboard">
+
+    <children>
+        <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+            <!-- Sidebar -->
+            <VBox prefWidth="230.0" spacing="4.0" style="-fx-background-color: #A61B29;">
+                <padding>
+                    <Insets top="28.0" bottom="20.0" left="18.0" right="18.0" />
+                </padding>
+
+                <Label text="Campus Connect " textFill="white">
+                    <font><Font name="System Bold" size="18.0" /></font>
+                    <VBox.margin><Insets bottom="8.0" /></VBox.margin>
+                </Label>
+
+                <Label fx:id="welcomeLabel" text="Welcome" textFill="#F0D9CB">
+                    <font><Font size="12.0" /></font>
+                    <VBox.margin><Insets bottom="20.0" /></VBox.margin>
+                </Label>
+
+                <Button fx:id="btnBrowseResources" onAction="#handleBrowseResources" text="Browse Resources"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+
+                <Button fx:id="btnBookNow" onAction="#handleBookNow" text="Book Now"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+
+                <Button fx:id="btnViewBookings" onAction="#handleViewBookings" text="View My Bookings"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+
+                <Button fx:id="btnCancelRequest" onAction="#handleCancelRequest" text="Cancel a Booking"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+
+
+                <!-- Staff only, hidden by default -->
+                <Button fx:id="btnManageBookings" onAction="#handleManageBookings" text="View Booking Requests"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        visible="true" managed="true"
+                        style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Separator style="-fx-background-color: #C24A56;">
+                    <VBox.margin><Insets top="10.0" bottom="10.0" /></VBox.margin>
+                </Separator>
+
+                <Button fx:id="btnLogout" onAction="#handleLogout" text="Logout"
+                        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 6; -fx-border-color: white; -fx-border-radius: 6;">
+                    <font><Font name="System Bold" size="13.0" /></font>
+                </Button>
+            </VBox>
+
+            <!-- Content area -->
+            <VBox spacing="24.0" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets top="40.0" left="50.0" right="50.0" bottom="30.0" />
+                </padding>
+
+                <VBox spacing="4.0">
+                    <Label text="Dashboard">
+                        <font><Font name="System Bold" size="26.0" /></font>
+                    </Label>
+                    <Label text="Here's a quick look at your bookings" textFill="#718096">
+                        <font><Font size="13.0" /></font>
+                    </Label>
+                </VBox>
+
+                <!-- Stat cards -->
+                <HBox spacing="16.0">
+                    <VBox spacing="6.0" prefWidth="200.0"
+                          style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                        <padding><Insets top="18.0" bottom="18.0" left="20.0" right="20.0" /></padding>
+                        <Label fx:id="statUpcoming" text="0" textFill="#A61B29">
+                            <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                        <Label text="Upcoming Bookings" textFill="#718096">
+                            <font><Font size="12.0" /></font>
+                        </Label>
+                    </VBox>
+
+                    <VBox spacing="6.0" prefWidth="200.0"
+                          style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                        <padding><Insets top="18.0" bottom="18.0" left="20.0" right="20.0" /></padding>
+                        <Label fx:id="statPending" text="0" textFill="#A61B29">
+                            <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                        <Label text="Pending Approval" textFill="#718096">
+                            <font><Font size="12.0" /></font>
+                        </Label>
+                    </VBox>
+
+                    <VBox spacing="6.0" prefWidth="200.0"
+                          style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                        <padding><Insets top="18.0" bottom="18.0" left="20.0" right="20.0" /></padding>
+                        <Label fx:id="statTotal" text="0" textFill="#A61B29">
+                            <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                        <Label text="Total This Month" textFill="#718096">
+                            <font><Font size="12.0" /></font>
+                        </Label>
+                    </VBox>
+                </HBox>
+
+                <!-- Recent bookings preview -->
+                <VBox spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"
+                      VBox.vgrow="ALWAYS">
+                    <padding><Insets top="18.0" bottom="18.0" left="20.0" right="20.0" /></padding>
+
+                    <Label text="Recent Bookings">
+                        <font><Font name="System Bold" size="15.0" /></font>
+                    </Label>
+
+                    <Label fx:id="recentBookingsPlaceholder" text="No bookings yet - click Book Now to get started"
+                           textFill="#A0AEC0">
+                        <font><Font size="12.0" /></font>
+                    </Label>
+                </VBox>
+
+            </VBox>
+
+        </HBox>
+    </children>
+</AnchorPane>

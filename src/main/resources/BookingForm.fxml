@@ -1,60 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.BookingForm"
-            prefHeight="500.0" prefWidth="800.0">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.BookingForm">
 
-    <Label text="Book Resource" layoutX="330" layoutY="20" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    <children>
+        <VBox spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <padding>
+                <Insets top="30.0" bottom="30.0" left="40.0" right="40.0" />
+            </padding>
 
-    <Label text="Resource ID" layoutX="30" layoutY="70"/>
-    <TextField fx:id="resourceIdField" layoutX="30" layoutY="90" prefWidth="200" editable="false"/>
+            <Label text="Book Resource">
+                <font><Font name="System Bold" size="24.0" /></font>
+            </Label>
 
-    <Label text="Date" layoutX="250" layoutY="70"/>
-    <DatePicker fx:id="bookingDatePicker" layoutX="250" layoutY="90" prefWidth="180"/>
+            <VBox spacing="14.0"
+                  style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;">
+                <padding>
+                    <Insets top="20.0" bottom="20.0" left="20.0" right="20.0" />
+                </padding>
 
-    <Label text="Start Time" layoutX="450" layoutY="70"/>
-    <ComboBox fx:id="startTimeBox" layoutX="450" layoutY="90" prefWidth="120" promptText="Select time"/>
+                <HBox spacing="16.0">
+                    <VBox spacing="4.0">
+                        <Label text="Resource ID" textFill="#4A5568"><font><Font name="System Bold" size="11.0" /></font></Label>
+                        <TextField fx:id="resourceIdField" prefWidth="180" editable="false"
+                                   style="-fx-background-radius: 6; -fx-border-color: #E2E8F0; -fx-border-radius: 6; -fx-background-color: #F4F6F8;" />
+                    </VBox>
 
-    <Label text="Duration (hrs)" layoutX="590" layoutY="70"/>
-    <ComboBox fx:id="durationBox" layoutX="590" layoutY="90" prefWidth="100"/>
+                    <VBox spacing="4.0">
+                        <Label text="Date" textFill="#4A5568"><font><Font name="System Bold" size="11.0" /></font></Label>
+                        <DatePicker fx:id="bookingDatePicker" prefWidth="160" />
+                    </VBox>
 
-    <Button fx:id="btnConfirmBooking" text="Confirm Booking" onAction="#handleConfirmBooking"
-            layoutX="30" layoutY="140" prefWidth="180"
-            style="-fx-background-color:#1565C0; -fx-text-fill:white;"/>
+                    <VBox spacing="4.0">
+                        <Label text="Start Time" textFill="#4A5568"><font><Font name="System Bold" size="11.0" /></font></Label>
+                        <ComboBox fx:id="startTimeBox" prefWidth="120" promptText="Select time" />
+                    </VBox>
 
-    <!-- Admin-only override, hidden by default -->
-    <CheckBox fx:id="overrideAvailabilityCheck" text="Override availability (Admin)"
-              layoutX="230" layoutY="145" visible="false" managed="false"/>
+                    <VBox spacing="4.0">
+                        <Label text="Duration (hrs)" textFill="#4A5568"><font><Font name="System Bold" size="11.0" /></font></Label>
+                        <ComboBox fx:id="durationBox" prefWidth="100" />
+                    </VBox>
+                </HBox>
 
-    <Separator layoutX="30" layoutY="190" prefWidth="740"/>
+                <HBox alignment="CENTER_LEFT" spacing="16.0">
+                    <Button fx:id="btnConfirmBooking" onAction="#handleConfirmBooking" text="Confirm Booking"
+                            prefHeight="40.0" prefWidth="180"
+                            style="-fx-background-color: #A61B29; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;">
+                        <font><Font name="System Bold" size="13.0" /></font>
+                    </Button>
 
-    <Label text="My Bookings" layoutX="30" layoutY="205" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <CheckBox fx:id="overrideAvailabilityCheck" text="Override availability (Admin)"
+                              visible="false" managed="false" />
+                </HBox>
+            </VBox>
 
-    <TableView fx:id="bookingTable" layoutX="30" layoutY="235" prefWidth="740" prefHeight="180">
-        <columns>
-            <TableColumn fx:id="colBookingId" text="Booking ID" prefWidth="100"/>
-            <TableColumn fx:id="colResourceId" text="Resource ID" prefWidth="120"/>
-            <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
-            <TableColumn fx:id="colTime" text="Time" prefWidth="120"/>
-            <TableColumn fx:id="colStatus" text="Status" prefWidth="140"/>
-        </columns>
-    </TableView>
+            <Separator />
 
-    <!-- Staff can modify, Student can only cancel their own -->
-    <Button fx:id="btnCancelBooking" text="Cancel Selected" onAction="#handleCancelBooking"
-            layoutX="30" layoutY="430" prefWidth="150"
-            style="-fx-background-color:#C62828; -fx-text-fill:white;"/>
+            <Label text="My Bookings">
+                <font><Font name="System Bold" size="16.0" /></font>
+            </Label>
 
-    <Button fx:id="btnModifyBooking" text="Modify Selected" onAction="#handleModifyBooking"
-            layoutX="200" layoutY="430" prefWidth="150" visible="false" managed="false"/>
+            <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 8; -fx-border-color: #E2E8F0; -fx-border-radius: 8;"
+                  VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="8.0" bottom="8.0" left="8.0" right="8.0" />
+                </padding>
 
-    <Button fx:id="btnBack" text="Back" onAction="#handleBack" layoutX="650" layoutY="430" prefWidth="100"/>
+                <TableView fx:id="bookingTable" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                    <columns>
+                        <TableColumn fx:id="colBookingId" text="Booking ID" prefWidth="100" />
+                        <TableColumn fx:id="colResourceId" text="Resource ID" prefWidth="120" />
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="120" />
+                        <TableColumn fx:id="colTime" text="Time" prefWidth="140" />
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="140" />
+                    </columns>
+                </TableView>
+            </VBox>
 
+            <HBox alignment="CENTER_LEFT" spacing="14.0">
+                <Button fx:id="btnCancelBooking" onAction="#handleCancelBooking" text="Cancel Selected"
+                        prefHeight="40.0" prefWidth="150"
+                        style="-fx-background-color: #7A1420; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;">
+                    <font><Font name="System Bold" size="12.0" /></font>
+                </Button>
+
+                <Button fx:id="btnModifyBooking" onAction="#handleModifyBooking" text="Modify Selected"
+                        prefHeight="40.0" prefWidth="150" visible="false" managed="false"
+                        style="-fx-background-color: #FFFFFF; -fx-text-fill: #A61B29; -fx-border-color: #A61B29; -fx-border-radius: 6; -fx-background-radius: 6; -fx-cursor: hand;">
+                    <font><Font name="System Bold" size="12.0" /></font>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="btnBack" onAction="#handleBack" text="Back" prefHeight="40.0" prefWidth="100"
+                        style="-fx-background-color: transparent; -fx-text-fill: #718096; -fx-border-color: #E2E8F0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-cursor: hand;">
+                    <font><Font size="13.0" /></font>
+                </Button>
+            </HBox>
+
+        </VBox>
+    </children>
 </AnchorPane>
