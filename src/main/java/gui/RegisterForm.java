@@ -8,8 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import manager.AuthManager;
 import model.User;
-import service.UserService;
 import utility.Validator;
 
 
@@ -39,7 +39,7 @@ public class RegisterForm {
     @FXML
     private Hyperlink btnBack;
 
-    private final UserService userService = new UserService();
+    private final AuthManager register = new AuthManager();
 
     // adds new user to the application data if it is valid
     @FXML
@@ -79,7 +79,7 @@ public class RegisterForm {
             return;
         }
 
-        User user = userService.registerUser(
+        User user = register.registerUser(
                 fullName,
                 username,
                 email,
