@@ -2,7 +2,6 @@ package manager;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import com.opencsv.CSVWriter;
 import model.User;
 
 import java.io.File;
