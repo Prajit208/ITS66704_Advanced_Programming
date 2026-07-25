@@ -4,7 +4,6 @@ import model.User;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
 
 public class Validator {
 

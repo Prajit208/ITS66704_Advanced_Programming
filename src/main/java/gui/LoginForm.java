@@ -1,5 +1,6 @@
 package gui;
 
+import exception.UserNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,16 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import manager.PersistenceManager;
-import model.User;
-import java.util.ArrayList;
+
 
 import java.io.IOException;
-import java.util.List;
+import manager.AuthManager;
+import model.User;
+import model.Role;
+
 
 public class LoginForm {
-    private List<User> users = new ArrayList<>();
-    private final PersistenceManager load =  new PersistenceManager();
+    private final AuthManager auth = new AuthManager();
     @FXML
     private TextField usernameField;
 
@@ -27,24 +28,32 @@ public class LoginForm {
     @FXML
     private Label errorLabel;
 
-    @FXML
-    public void initialize() {
-        System.out.println("LoginForm initialized");
-        users = load.loadUsers();
-        System.out.println("Number of users: " + users.size());
-    }
 
     @FXML
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Please enter both username and password");
-            return;
-        }
+       try{
+           User user = auth.login(username,password);
+           errorLabel.setStyle("-fx-text-fill: green;");
+           errorLabel.setText("Log in successful");
+           // Implementing RBAC
+           if (user.getRole() == Role.ADMIN) {
+               handleTempAdminAccess();
 
-        // Authentication method call here
+           } else if (user.getRole() == Role.STUDENT) {
+               goToResourceListing(user.getRole().toString());
+
+           } else if (user.getRole() == Role.STAFF) {
+               goToResourceListing(user.getRole().toString());
+           }
+       }
+       catch (UserNotFoundException e){
+           errorLabel.setStyle("-fx-text-fill: red;");
+           errorLabel.setText(e.getMessage());
+           System.out.println("Caught an exception: "+e);
+       }
 
     }
     // Opens the registration screen
