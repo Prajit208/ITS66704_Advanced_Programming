@@ -8,6 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User;
+import service.UserService;
+import utility.Validator;
+
 
 
 public class RegisterForm {
@@ -35,9 +39,56 @@ public class RegisterForm {
     @FXML
     private Hyperlink btnBack;
 
+    private final UserService userService = new UserService();
+
     // adds new user to the application data if it is valid
     @FXML
     private void handleRegister() {
+        String fullName = fullNameField.getText();
+        String username = usernameField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+
+        // Convert ComboBox String to User.Role enum
+        User.Role role;
+
+//        Getting the validation message
+        try {
+            role = User.Role.valueOf(roleComboBox.getValue());
+        } catch (Exception e) {
+            messageLabel.setStyle("-fx-text-fill: red;");
+            messageLabel.setText("Please select a role");
+            return;
+        }
+
+        String validationMessage = Validator.validateRegistration(
+                fullName,
+                username,
+                email,
+                password,
+                confirmPassword
+        );
+
+
+//        Return null if there validation msg is not null
+        if (validationMessage != null) {
+            messageLabel.setStyle("-fx-text-fill: red;");
+            messageLabel.setText(validationMessage);
+            return;
+        }
+
+        User user = userService.registerUser(
+                fullName,
+                username,
+                email,
+                password,
+                role);
+
+        if (user != null) {
+        messageLabel.setStyle("-fx-text-fill: green;");
+        messageLabel.setText("Registration successful");
         try {
             // redirection to login page logic
             //Gets the log in form fxml file
@@ -53,6 +104,11 @@ public class RegisterForm {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        }
+            messageLabel.setStyle("-fx-text-fill: red;");
+            messageLabel.setText("Registration failed");
+            return;
+
     }
     // used to go back to log in if the user already has the account
     @FXML
