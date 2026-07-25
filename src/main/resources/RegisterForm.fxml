@@ -68,10 +68,10 @@
                                prefHeight="40"
                                maxWidth="300"/>
 
-                <ComboBox fx:id="roleComboBox"
-                          promptText="Select Role"
-                          prefHeight="40"
-                          maxWidth="300"/>
+<!--                <ComboBox fx:id="roleComboBox"-->
+<!--                          promptText="Select Role"-->
+<!--                          prefHeight="40"-->
+<!--                          maxWidth="300"/>-->
 
                 <Label fx:id="messageLabel"
                        textFill="#E53E3E"

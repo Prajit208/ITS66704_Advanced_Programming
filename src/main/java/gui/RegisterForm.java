@@ -17,6 +17,7 @@ import java.util.List;
 
 import manager.PersistenceManager;
 
+import static model.Role.STUDENT;
 
 
 public class RegisterForm {
@@ -57,17 +58,8 @@ public class RegisterForm {
         String confirmPassword = confirmPasswordField.getText();
 
 
-        // Convert ComboBox String to User.Role enum
-        Role role;
 
 //        Getting the validation message
-        try {
-            role = Role.valueOf(roleComboBox.getValue());
-        } catch (Exception e) {
-            messageLabel.setStyle("-fx-text-fill: red;");
-            messageLabel.setText("Please select a role");
-            return;
-        }
 
         String validationMessage = Validator.validateRegistration(
                 fullName,
@@ -91,7 +83,7 @@ public class RegisterForm {
                 username,
                 email,
                 password,
-                role);
+                STUDENT);
 
         if (user != null) {
         messageLabel.setStyle("-fx-text-fill: green;");
@@ -137,7 +129,6 @@ public class RegisterForm {
     }
     @FXML
     public void initialize() {
-        roleComboBox.getItems().addAll("STUDENT", "STAFF");
         System.out.println("RegisterForm initialized");
         users = load.loadUsers();
         System.out.println("Number of users: " + users.size());
