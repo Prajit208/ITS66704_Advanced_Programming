@@ -1,130 +1,86 @@
 package manager;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
+import model.Booking;
+import model.Resource;
 import model.User;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
 
 public class PersistenceManager {
-    private static final String USER_FILE = "data/users.csv";
+
+    private static final String USERS_FILE = "data/users.dat";
+    private static final String RESOURCES_FILE = "data/resources.dat";
+    private static final String BOOKINGS_FILE = "data/bookings.dat";
+
+    // ---------- USERS ----------
+
     public void saveUser(User user) {
+        List<User> users = loadUsers();
+        users.add(user);
+        saveUsers(users);
+    }
+    public void saveUsers(List<User> users) {
+        saveToFile(USERS_FILE, users);
+    }
+    @SuppressWarnings("unchecked")
+    public List<User> loadUsers() {
+        return (List<User>) loadFromFile(USERS_FILE);
+    }
 
-        File file = new File(USER_FILE);
+    // ---------- RESOURCES ----------
 
-        try (CSVWriter writer = new CSVWriter(
-                new FileWriter(file, true))) {
+    public void saveResources(List<Resource> resources) {
+        saveToFile(RESOURCES_FILE, resources);
+    }
 
+    @SuppressWarnings("unchecked")
+    public List<Resource> loadResources() {
+        return (List<Resource>) loadFromFile(RESOURCES_FILE);
+    }
 
-            writer.writeNext(new String[]{
-                    user.getUserID().toString(),
-                    user.getName(),
-                    user.getUsername(),
-                    user.getPasswordHash(),
-                    user.getEmail(),
-                    user.getRole().toString()
-            });
+    // ---------- BOOKINGS ----------
 
+    public void saveBookings(List<Booking> bookings) {
+        saveToFile(BOOKINGS_FILE, bookings);
+    }
 
+    @SuppressWarnings("unchecked")
+    public List<Booking> loadBookings() {
+        return (List<Booking>) loadFromFile(BOOKINGS_FILE);
+    }
+
+    // ---------- SHARED HELPERS ----------
+    // Both save methods above just call this one generic method underneath,
+    // avoids repeating the same file-writing code three separate times.
+
+    private void saveToFile(String filePath, List<?> data) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            out.writeObject(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    // initialize the csv file with two users when the application is lauched
     public void initializeUsersFile() {
-
-        File file = new File(USER_FILE);
-
-        File parentDirectory = file.getParentFile();
-
-        if (!parentDirectory.exists()) {
-            parentDirectory.mkdirs();
-        }
-
-
-        if (!file.exists() || file.length() == 0) {
-
-            try (CSVWriter writer = new CSVWriter(
-                    new FileWriter(file, true))) {
-
-
-                writer.writeNext(new String[]{
-                        "User ID",
-                        "Full Name",
-                        "Username",
-                        "Password Hash",
-                        "Email",
-                        "Role"
-                });
-
-
-                writer.writeNext(new String[]{
-                        UUID.randomUUID().toString(),
-                        "System Admin",
-                        "admin",
-                        AuthManager.hash("admin123"),
-                        "admin@gmail.com",
-                        "Admin"
-                });
-
-
-                writer.writeNext(new String[]{
-                        UUID.randomUUID().toString(),
-                        "Main Admin",
-                        "admin2",
-                        AuthManager.hash("admin456"),
-                        "admin2@gmail.com",
-                        "Admin"
-                });
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    // Loading the users
-    public ArrayList<User> loadUsers() {
-        ArrayList<User> users = new ArrayList<>();
-
-        File file = new File(USER_FILE);
+        File file = new File(USERS_FILE);
+        file.getParentFile().mkdirs(); // ensure data/ folder exists
 
         if (!file.exists()) {
-            return users;
+            saveUsers(new ArrayList<>()); // creates an empty users.dat
+        }
+    }
+    private List<?> loadFromFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return new ArrayList<>(); // first run, nothing saved yet
         }
 
-        try (CSVReader reader = new CSVReader(new FileReader(file))) {
-
-            String[] line;
-
-            // Skip the header row
-            reader.readNext();
-
-            while ((line = reader.readNext()) != null) {
-
-                User user = new User(
-                        UUID.fromString(line[0]),     // User ID
-                        line[1],                      // Full Name
-                        line[2],                      // Username
-                        line[3],                      // Password Hash
-                        line[4],                      // Email
-                        User.Role.valueOf(line[5])    // Role
-                );
-
-                users.add(user);
-            }
-
-        } catch (Exception e) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<?>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-
-        return users;
     }
 }

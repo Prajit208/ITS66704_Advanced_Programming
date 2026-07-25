@@ -10,14 +10,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import manager.AuthManager;
 import model.User;
+import model.Role;
 import utility.Validator;
 import java.util.ArrayList;
+import java.util.List;
+
 import manager.PersistenceManager;
 
 
 
 public class RegisterForm {
-    private ArrayList<User> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
     private final PersistenceManager load =  new PersistenceManager();
     @FXML
     private TextField fullNameField;
@@ -55,11 +58,11 @@ public class RegisterForm {
 
 
         // Convert ComboBox String to User.Role enum
-        User.Role role;
+        Role role;
 
 //        Getting the validation message
         try {
-            role = User.Role.valueOf(roleComboBox.getValue());
+            role = Role.valueOf(roleComboBox.getValue());
         } catch (Exception e) {
             messageLabel.setStyle("-fx-text-fill: red;");
             messageLabel.setText("Please select a role");
@@ -134,7 +137,7 @@ public class RegisterForm {
     }
     @FXML
     public void initialize() {
-        roleComboBox.getItems().addAll("Student", "Staff");
+        roleComboBox.getItems().addAll("STUDENT", "STAFF");
         System.out.println("RegisterForm initialized");
         users = load.loadUsers();
         System.out.println("Number of users: " + users.size());

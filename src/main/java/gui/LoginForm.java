@@ -13,9 +13,10 @@ import model.User;
 import java.util.ArrayList;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LoginForm {
-    private ArrayList<User> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
     private final PersistenceManager load =  new PersistenceManager();
     @FXML
     private TextField usernameField;

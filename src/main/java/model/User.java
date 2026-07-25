@@ -1,23 +1,19 @@
 package model;
+import java.io.Serializable;
 import java.util.UUID;
-public class User {
-    private UUID userID;
+public class User implements Serializable {
+    private String userID;
     private String fullName;
     private String username;
     private String passwordHash;
     private String email;
     private Role role;
 
-    public enum Role {
-        Student,
-        Staff,
-        Admin
-    }
 
     // Constructor for creating a NEW user
     public User(String fullName, String username,
                 String passwordHash, String email, Role role) {
-        this.userID = UUID.randomUUID(); // Automatically generate ID
+        this.userID = UUID.randomUUID().toString(); // Automatically generate ID
         this.fullName = fullName;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -26,7 +22,7 @@ public class User {
     }
 
     // Constructor for LOADING a user from the CSV
-    public User(UUID userID, String fullName,
+    public User(String userID, String fullName,
                 String username, String passwordHash,
                 String email, Role role) {
         this.userID = userID; // Use the existing ID from the CSV
@@ -36,10 +32,18 @@ public class User {
         this.email = email;
         this.role = role;
     }
+    // Minimal constructor for cases needing just identity + role
+    // (e.g. building a lightweight "requesting user" for permission checks)
+    public User(String userID, Role role) {
+        this.userID = userID;
+        this.role = role;
+    }
 
-    public UUID getUserID() {
+    public String getUserID() {
         return userID;
     }
+
+
 
     // Getter and Setter for fullName
     public String getName() {

@@ -10,11 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import manager.PersistenceManager;
 import model.Resource;
-import model.StudyRoom;
-import model.Lab;
-import model.EquipmentResource;
-import model.EventSpace;
+import manager.ResourceManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +35,8 @@ public class ResourceListingForm {
 
     private String currentUserRole = "STUDENT";
 
+    private ResourceManager<Resource> resourceManager = new ResourceManager<>();
+
     @FXML
     public void initialize() {
         typeFilter.getItems().addAll("Study Room", "Lab", "Equipment", "Event Space");
@@ -55,7 +55,7 @@ public class ResourceListingForm {
                         String.join(", ", data.getValue().getBookingRules())));
 
         roleCheck();
-        loadDummyData();
+        loadInitialResources();
     }
 
     public void setCurrentUserRole(String role) {
@@ -69,14 +69,31 @@ public class ResourceListingForm {
         }
     }
 
+    private void loadInitialResources() {
+        PersistenceManager persistenceManager = new PersistenceManager();
+        List<Resource> savedResources = persistenceManager.loadResources();
+
+        for (Resource r : savedResources) {
+            resourceManager.addResource(r);
+        }
+
+        refreshTable();
+    }
+
+    private void refreshTable() {
+        ObservableList<Resource> items = FXCollections.observableArrayList(
+                resourceManager.searchAvailable(null, null, false, null));
+        resourceTable.setItems(items);
+    }
+
     @FXML
     private void handleSearch() {
         String type = typeFilter.getValue();
         String location = locationFilter.getText();
         boolean availableOnly = availableOnlyCheck.isSelected();
 
-        // placeholder: ResourceManager.searchAvailable(type, location, availableOnly, null)
-        // then populate resourceTable with the results
+        List<Resource> results = resourceManager.searchAvailable(type, location, availableOnly, null);
+        resourceTable.setItems(FXCollections.observableArrayList(results));
     }
 
     @FXML
@@ -97,7 +114,7 @@ public class ResourceListingForm {
             controller.setCurrentUserRole(currentUserRole);
 
             Stage stage = (Stage) btnBook.getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 500));
+            stage.setScene(new Scene(root, 900, 600));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,15 +128,5 @@ public class ResourceListingForm {
     @FXML
     private void handleBack() {
         // placeholder: return to previous dashboard/screen
-    }
-
-    private void loadDummyData() {
-        ObservableList<Resource> dummyResources = FXCollections.observableArrayList(
-                new StudyRoom("R001", "Library 2F", 4, true, List.of("Max 2hr booking")),
-                new Lab("R002", "CS Building B12", 20, false, List.of("Requires staff approval"), List.of("PCs", "Projector")),
-                new EquipmentResource("R003", "Media Lab", 1, true, List.of("Return within 24hr")),
-                new EventSpace("R004", "Main Hall", 100, true, List.of("Book 1 week ahead"))
-        );
-        resourceTable.setItems(dummyResources);
     }
 }

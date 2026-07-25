@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Booking{
+public class Booking implements Serializable {
     private String bookingID;
     private String userID;
     private String resourceID;

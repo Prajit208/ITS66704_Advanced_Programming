@@ -2,6 +2,7 @@ package utility;
 
 import model.User;
 
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class Validator {
             String email,
             String password,
             String confirmPassword,
-            ArrayList<User> users
+            List<User> users
             ) {
 
         if (isEmpty(fullName)) {
@@ -82,7 +83,7 @@ public class Validator {
                 password.equals(confirmPassword);
     }
 // Checks whether the username is already taken
-    public static boolean usernameExists(String username, ArrayList<User> users) {
+    public static boolean usernameExists(String username, List<User> users) {
         if (users == null) {
             return false;
         }
@@ -95,7 +96,7 @@ public class Validator {
         return false;
     }
 // Checks if the same email exists
-    public static boolean emailExists(String email, ArrayList<User> users) {
+    public static boolean emailExists(String email, List<User> users) {
         if (users == null) {
             return false;
         }

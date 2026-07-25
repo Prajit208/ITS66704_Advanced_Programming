@@ -1,6 +1,7 @@
 package manager;
 
 
+import model.Role;
 import model.User;
 
 import de.mkammerer.argon2.Argon2;
@@ -15,7 +16,7 @@ public class AuthManager {
             String username,
             String email,
             String password,
-            User.Role role
+            Role role
     ) {
         try{
 
