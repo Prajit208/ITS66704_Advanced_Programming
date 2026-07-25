@@ -2,6 +2,7 @@ package manager;
 
 import model.Booking;
 import model.Resource;
+import model.Role;
 import model.User;
 
 import java.io.*;
@@ -67,7 +68,25 @@ public class PersistenceManager {
         file.getParentFile().mkdirs(); // ensure data/ folder exists
 
         if (!file.exists()) {
-            saveUsers(new ArrayList<>()); // creates an empty users.dat
+            List<User> users = new ArrayList<>();
+
+            users.add(new User(
+                    "System Administrator",
+                    "admin1",
+                    AuthManager.hash("admin1234"),      // Ideally store a hashed password
+                    "admin1@system.com",
+                    Role.ADMIN
+            ));
+
+            users.add(new User(
+                    "Backup Administrator",
+                    "admin2",
+                    AuthManager.hash("admin456"),      // Ideally store a hashed password
+                    "admin2@system.com",
+                    Role.ADMIN
+            ));
+
+            saveUsers(users);// creates users.dat with two users
         }
     }
     private List<?> loadFromFile(String filePath) {
