@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
-
-public abstract class Resource {
+// Abstract since you cannot directly create new Resource, only its subtypes like Lab,Studyromm
+public abstract class Resource implements Serializable {
     private String resourceID;
     private String type;
     private String location;

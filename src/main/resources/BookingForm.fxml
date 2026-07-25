@@ -40,7 +40,7 @@
                 <HBox spacing="16.0">
                     <VBox spacing="4.0">
                         <Label text="Resource ID" textFill="#4A5568"><font><Font name="System Bold" size="11.0" /></font></Label>
-                        <TextField fx:id="resourceIdField" prefWidth="180" editable="false"
+                        <TextField fx:id="resourceIdField" prefWidth="180"
                                    style="-fx-background-radius: 6; -fx-border-color: #E2E8F0; -fx-border-radius: 6; -fx-background-color: #F4F6F8;" />
                     </VBox>
 
@@ -63,13 +63,16 @@
                 <HBox alignment="CENTER_LEFT" spacing="16.0">
                     <Button fx:id="btnConfirmBooking" onAction="#handleConfirmBooking" text="Confirm Booking"
                             prefHeight="40.0" prefWidth="180"
+
                             style="-fx-background-color: #A61B29; -fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;">
                         <font><Font name="System Bold" size="13.0" /></font>
+
                     </Button>
 
                     <CheckBox fx:id="overrideAvailabilityCheck" text="Override availability (Admin)"
                               visible="false" managed="false" />
                 </HBox>
+                <Label fx:id="errorLabel" wrapText="true"/>
             </VBox>
 
             <Separator />
