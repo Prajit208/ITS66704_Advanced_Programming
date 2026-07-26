@@ -1,6 +1,7 @@
 package manager;
 
 
+import exception.UserNotFoundException;
 import model.Role;
 import model.User;
 
@@ -34,6 +35,24 @@ public class AuthManager {
         } catch (RuntimeException e) {
             return null;
         }
+    }
+
+// handles the login
+    public User login(String username, String password) {
+        PersistenceManager persistence = new PersistenceManager();
+
+        for (User user : persistence.loadUsers()) {
+
+            if (user.getUsername().equalsIgnoreCase(username)) {
+                if(verify(password, user.getPasswordHash())){
+                return user;
+                }
+                throw new UserNotFoundException("Invalid Password");
+
+            }
+        }
+
+        throw new UserNotFoundException("User not Found");
     }
 
     // returns a hash password

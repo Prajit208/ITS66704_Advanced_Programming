@@ -33,8 +33,6 @@ public class RegisterForm {
     private TextField emailField;
 
     @FXML
-    private ComboBox<String> roleComboBox;
-    @FXML
     private PasswordField passwordField;
 
     @FXML
