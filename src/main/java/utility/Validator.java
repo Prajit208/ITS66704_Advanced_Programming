@@ -1,7 +1,9 @@
 package utility;
 
+import model.Role;
 import model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -13,7 +15,77 @@ public class Validator {
     private static final Pattern USERNAME_PATTERN =
             Pattern.compile("^[a-zA-Z0-9_]{3,20}$");
 
+    // validates the create
+    public static String validateCreate(
+            String fullName,
+            String username,
+            String email,
+            Role role,
+            ArrayList<User> users
+    ) {
 
+        if (isEmpty(fullName)) {
+            return "Name is required";
+        }
+
+
+        if (!isValidUsername(username)) {
+            return "Username must be 3-20 characters";
+        }
+
+
+        if (usernameExists(username, users)) {
+            return "Username already exists";
+        }
+
+
+        if (emailExists(email, users)) {
+            return "Email already exists";
+        }
+
+
+        if (!isValidEmail(email)) {
+            return "Invalid email format";
+        }
+
+
+        if (role == null) {
+            return "Role is required";
+        }
+
+
+        return null; // no errors
+    }
+
+    // validates the update
+    public static String validateUpdate(String fullName,
+                                        String username,
+                                        String email,
+                                        Role role,
+                                        ArrayList<User> users){
+        if (isEmpty(fullName)) {
+            return "Name is required";
+        }
+
+
+        if (!isValidUsername(username)) {
+            return "Username must be 3-20 characters";
+        }
+
+
+        if (!isValidEmail(email)) {
+            return "Invalid email format";
+        }
+
+
+        if (role == null) {
+            return "Role is required";
+        }
+
+
+        return null; // no errors
+    }
+    // validates the user
     public static String validateRegistration(
             String fullName,
             String username,
@@ -82,7 +154,7 @@ public class Validator {
                 password.equals(confirmPassword);
     }
 // Checks whether the username is already taken
-    public static boolean usernameExists(String username, List<User> users) {
+    private static boolean usernameExists(String username, List<User> users) {
         if (users == null) {
             return false;
         }
@@ -95,7 +167,7 @@ public class Validator {
         return false;
     }
 // Checks if the same email exists
-    public static boolean emailExists(String email, List<User> users) {
+    private static boolean emailExists(String email, List<User> users) {
         if (users == null) {
             return false;
         }

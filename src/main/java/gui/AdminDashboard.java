@@ -1,7 +1,13 @@
 package gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AdminDashboard {
 
@@ -15,8 +21,7 @@ public class AdminDashboard {
 
     @FXML
     private void handleManageResources() {
-        // popen resource add/edit/remove screen
-        // calls ResourceManager.addResource(), removeResource(), etc.
+
     }
 
     @FXML
@@ -27,8 +32,16 @@ public class AdminDashboard {
 
     @FXML
     private void handleManageUsers() {
-        // open user account management screen
-        // calls UserManager.createAccount(), editAccount(), etc.
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserManager.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setTitle("Manage Users");
+            stage.setScene(new Scene(root, 800, 500));
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML

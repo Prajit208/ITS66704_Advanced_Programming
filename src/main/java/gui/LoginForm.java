@@ -83,6 +83,7 @@ public class LoginForm {
             Parent root = loader.load();
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setTitle("Admin Dashboard");
             stage.setScene(new Scene(root, 800, 500));
         } catch (IOException e) {
             e.printStackTrace();
