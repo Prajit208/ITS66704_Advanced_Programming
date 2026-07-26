@@ -36,17 +36,14 @@ public class LoginForm {
 
        try{
            User user = auth.login(username,password);
+           System.out.println("Logged in user: " + user.getUsername() + ", role: " + user.getRole());
            errorLabel.setStyle("-fx-text-fill: green;");
            errorLabel.setText("Log in successful");
            // Implementing RBAC
            if (user.getRole() == Role.ADMIN) {
-               handleTempAdminAccess();
-
-           } else if (user.getRole() == Role.STUDENT) {
-               goToResourceListing(user.getRole().toString());
-
-           } else if (user.getRole() == Role.STAFF) {
-               goToResourceListing(user.getRole().toString());
+               goToAdminDashboard(user);
+           } else {
+               goToUserDashboard(user); // covers STUDENT and STAFF, no need for two branches
            }
        }
        catch (UserNotFoundException e){
@@ -75,39 +72,47 @@ public class LoginForm {
         }
     }
 
-// temporary access button to view admin dashboard
+
     @FXML
-    private void handleTempAdminAccess() {
+    private void goToAdminDashboard(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDashboard.fxml"));
             Parent root = loader.load();
 
+            AdminDashboard controller = loader.getController();
+            controller.setCurrentUser(user);
+
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setTitle("Admin Dashboard");
-            stage.setScene(new Scene(root, 800, 500));
+            stage.setScene(new Scene(root, 950, 600));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // temporary access button to view what student would see
-    @FXML
-    private void handleDevStudent() {
-        goToResourceListing("STUDENT");
-    }
-    // temporary access button to view what student would see
-    @FXML
-    private void handleDevStaff() {
-        goToResourceListing("STAFF");
+    private void goToUserDashboard(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserDashboard.fxml"));
+            Parent root = loader.load();
+
+            UserDashboard controller = loader.getController();
+            controller.setCurrentUser(user);
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root, 900, 600));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void goToResourceListing(String role) {
+
+    private void goToResourceListing(User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ResourceListingForm.fxml"));
             Parent root = loader.load();
 
             ResourceListingForm controller = loader.getController();
-            controller.setCurrentUserRole(role);
+            controller.setCurrentUser(user);
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(new Scene(root, 800, 500));

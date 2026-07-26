@@ -3,9 +3,13 @@ package gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.beans.property.SimpleStringProperty;
 
+import javafx.stage.Stage;
 import manager.BookingManager;
 import model.Booking;
 import model.User;
@@ -13,7 +17,8 @@ import model.Role;
 import exception.ResourceUnavailableException;
 import exception.InvalidBookingDurationException;
 import exception.UnauthorizedAccessException;
-
+import javafx.scene.control.Button;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -38,14 +43,23 @@ public class BookingForm {
 
     @FXML private Button btnCancelBooking;
     @FXML private Button btnModifyBooking;
+    @FXML private Button btnBack;
 
     private BookingManager bookingManager = new BookingManager();
 
     // TODO: this should come from AuthManager/passed in via setter once login is real
-    private String currentUserRole = "STUDENT";
-    private String currentUserID = "user1"; // TODO: replace once login passes real user in
-    private String currentUserName = "Test User";
+    private User currentUser;
+
     private String selectedResourceId;
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        if (user != null) {
+            refreshBookingTable();
+            roleCheck();
+        }
+
+    }
 
     @FXML
     public void initialize() {
@@ -64,7 +78,7 @@ public class BookingForm {
         colStatus.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().getBookingStatus().toString()));
 
-        refreshBookingTable();
+
     }
 
     public void setResourceId(String resourceId) {
@@ -74,16 +88,12 @@ public class BookingForm {
         resourceIdField.setStyle("-fx-background-color: #F4F6F8;");
     }
 
-    public void setCurrentUserRole(String role) {
-        this.currentUserRole = role;
-        roleCheck();
-    }
 
     private void roleCheck() {
-        if (currentUserRole.equals("STAFF")) {
+        if (currentUser.getRole() == Role.STAFF) {
             btnModifyBooking.setVisible(true);
             btnModifyBooking.setManaged(true);
-        } else if (currentUserRole.equals("ADMIN")) {
+        } else if (currentUser.getRole() == Role.ADMIN) {
             btnModifyBooking.setVisible(true);
             btnModifyBooking.setManaged(true);
             overrideAvailabilityCheck.setVisible(true);
@@ -110,7 +120,7 @@ public class BookingForm {
         LocalDateTime end = start.plusHours(Long.parseLong(durationStr));
 
         try {
-            bookingManager.createBooking(currentUserID, resourceId, start, end, currentUserName);
+            bookingManager.createBooking(currentUser.getUserID(), resourceId, start, end, currentUser.getName());
             errorLabel.setStyle("-fx-text-fill: green;");
             errorLabel.setText("Booking confirmed");
             refreshBookingTable();
@@ -129,10 +139,8 @@ public class BookingForm {
             return;
         }
 
-        User requestingUser = new User(currentUserID, Role.valueOf(currentUserRole));
-
         try {
-            bookingManager.cancelBooking(selected.getBookingID(), requestingUser);
+            bookingManager.cancelBooking(selected.getBookingID(), currentUser);
             errorLabel.setStyle("-fx-text-fill: green;");
             errorLabel.setText("Booking cancelled");
             refreshBookingTable();
@@ -149,12 +157,47 @@ public class BookingForm {
 
     @FXML
     private void handleBack() {
-        // placeholder: return to ResourceListingForm
+        if (currentUser == null) {
+            return;
+        }
+
+        try {
+            String fxmlPath = currentUser.getRole() == Role.ADMIN
+                    ? "/AdminDashboard.fxml"
+                    : "/UserDashboard.fxml";
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(fxmlPath)
+            );
+
+            Parent root = loader.load();
+
+            if (currentUser.getRole() == Role.ADMIN) {
+                AdminDashboard controller = loader.getController();
+                controller.setCurrentUser(currentUser);
+            } else {
+                UserDashboard controller = loader.getController();
+                controller.setCurrentUser(currentUser);
+            }
+
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+
+            stage.setTitle(
+                    currentUser.getRole() == Role.ADMIN
+                            ? "Admin Dashboard"
+                            : "User Dashboard"
+            );
+
+            stage.setScene(new Scene(root, 900, 600));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void refreshBookingTable() {
         ObservableList<Booking> userBookings = FXCollections.observableArrayList(
-                bookingManager.getBookingsForUser(currentUserID));
+                bookingManager.getBookingsForUser(currentUser.getUserID()));
         bookingTable.setItems(userBookings);
     }
 }

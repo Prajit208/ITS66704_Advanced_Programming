@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="950.0"
+            style="-fx-background-color:#F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.BookingRequests">
+
+    <children>
+        <VBox spacing="20" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding><Insets top="30" bottom="30" left="40" right="40"/></padding>
+
+            <Label text="Booking Requests">
+                <font><Font name="System Bold" size="24"/></font>
+            </Label>
+
+            <VBox style="-fx-background-color:#FFFFFF; -fx-background-radius:8; -fx-border-color:#E2E8F0; -fx-border-radius:8;"
+                  VBox.vgrow="ALWAYS">
+                <padding><Insets top="8" bottom="8" left="8" right="8"/></padding>
+
+                <TableView fx:id="requestsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colBookingId" text="Booking ID" prefWidth="100"/>
+                        <TableColumn fx:id="colResourceId" text="Resource ID" prefWidth="120"/>
+                        <TableColumn fx:id="colRequestedBy" text="Requested By" prefWidth="150"/>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                        <TableColumn fx:id="colTime" text="Time" prefWidth="140"/>
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <Button fx:id="btnApprove" text="Approve" onAction="#handleApprove" prefHeight="40" prefWidth="140"
+                        style="-fx-background-color:#4CAF50; -fx-text-fill:white; -fx-background-radius:6; -fx-cursor:hand;"/>
+
+                <Button fx:id="btnReject" text="Reject" onAction="#handleReject" prefHeight="40" prefWidth="140"
+                        style="-fx-background-color:#E53935; -fx-text-fill:white; -fx-background-radius:6; -fx-cursor:hand;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Back" onAction="#handleBack" prefHeight="40" prefWidth="100"
+                        style="-fx-background-color:transparent; -fx-text-fill:#718096; -fx-border-color:#E2E8F0; -fx-border-radius:6; -fx-background-radius:6; -fx-cursor:hand;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

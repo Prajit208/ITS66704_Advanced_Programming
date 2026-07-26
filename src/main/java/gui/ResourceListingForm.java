@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import manager.PersistenceManager;
 import model.Resource;
 import manager.ResourceManager;
+import model.Role;
+import model.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,10 +34,21 @@ public class ResourceListingForm {
     @FXML private TableColumn<Resource, String> colRules;
     @FXML private Button btnBook;
     @FXML private Button btnMyBookings;
+    @FXML private Button btnBack;
 
-    private String currentUserRole = "STUDENT";
+    private User currentUser;
+
 
     private ResourceManager<Resource> resourceManager = new ResourceManager<>();
+
+    public void setCurrentUser(User user) {
+        System.out.println("ResourceListingForm.setCurrentUser called with: " + (user == null ? "NULL" : user.getUsername()));
+        this.currentUser = user;
+
+        if (user != null) {
+            roleCheck();
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -54,17 +67,14 @@ public class ResourceListingForm {
                 new javafx.beans.property.SimpleStringProperty(
                         String.join(", ", data.getValue().getBookingRules())));
 
-        roleCheck();
+
         loadInitialResources();
     }
 
-    public void setCurrentUserRole(String role) {
-        this.currentUserRole = role;
-        roleCheck();
-    }
+
 
     private void roleCheck() {
-        if (currentUserRole.equals("STAFF")) {
+        if (currentUser.getRole() == Role.STAFF) {
             btnMyBookings.setText("Manage My Bookings");
         }
     }
@@ -101,7 +111,6 @@ public class ResourceListingForm {
         Resource selected = resourceTable.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            // placeholder: show an alert telling the user to select a row first
             return;
         }
 
@@ -111,7 +120,7 @@ public class ResourceListingForm {
 
             BookingForm controller = loader.getController();
             controller.setResourceId(selected.getResourceID());
-            controller.setCurrentUserRole(currentUserRole);
+            controller.setCurrentUser(currentUser);
 
             Stage stage = (Stage) btnBook.getScene().getWindow();
             stage.setScene(new Scene(root, 900, 600));
@@ -127,6 +136,28 @@ public class ResourceListingForm {
 
     @FXML
     private void handleBack() {
-        // placeholder: return to previous dashboard/screen
+        try {
+            String fxmlPath = currentUser.getRole() == Role.ADMIN
+                    ? "/AdminDashboard.fxml"
+                    : "/UserDashboard.fxml";
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+
+            if (currentUser.getRole() == Role.ADMIN) {
+                AdminDashboard controller = loader.getController();
+                controller.setCurrentUser(currentUser);
+            } else {
+                UserDashboard controller = loader.getController();
+                controller.setCurrentUser(currentUser);
+            }
+
+            Stage stage = (Stage) btnBack.getScene().getWindow();
+            stage.setTitle(currentUser.getRole() == Role.ADMIN ? "Admin Dashboard" : "Dashboard");
+            stage.setScene(new Scene(root, 900, 600));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

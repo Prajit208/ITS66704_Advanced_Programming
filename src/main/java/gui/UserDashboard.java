@@ -1,8 +1,17 @@
 package gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+import model.Role;
+import model.User;
+
+import java.io.IOException;
 
 public class UserDashboard {
 
@@ -12,12 +21,17 @@ public class UserDashboard {
     @FXML private Label statTotal;
     @FXML private Button btnManageBookings;
 
-    // TODO: replace with real role from AuthManager once login is wired up
-    private String currentUserRole = "STAFF";
+    private User currentUser;
 
-    @FXML
-    public void initialize() {
-        if (currentUserRole.equals("STAFF")) {
+    public void setCurrentUser(User user) {
+        System.out.println("UserDashboard.setCurrentUser called with: " + (user == null ? "NULL" : user.getUsername()));
+        this.currentUser = user;
+        welcomeLabel.setText("Welcome, " + user.getName());
+        roleCheck();
+    }
+
+    private void roleCheck() {
+        if (currentUser.getRole() == Role.STAFF) {
             btnManageBookings.setVisible(true);
             btnManageBookings.setManaged(true);
         }
@@ -26,34 +40,82 @@ public class UserDashboard {
 
     @FXML
     private void handleBrowseResources() {
-        // placeholder: navigate to ResourceListingForm
+        navigateToResourceListing();
     }
 
     @FXML
     private void handleBookNow() {
-        // placeholder: navigate to BookingForm
+        navigateToResourceListing(); // same screen — booking starts by picking a resource first
+    }
+
+    private void navigateToResourceListing() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ResourceListingForm.fxml"));
+            Parent root = loader.load();
+
+            ResourceListingForm controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root, 900, 600));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleViewBookings() {
-        // placeholder: BookingManager.getBookingsForUser(currentUserId)
+        navigateToBookingForm();
     }
 
     @FXML
     private void handleCancelRequest() {
-        // placeholder: BookingManager.cancelBooking(bookingId, currentUser)
+        navigateToBookingForm(); // cancelling happens from the same booking table
+    }
+
+    private void navigateToBookingForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/BookingForm.fxml"));
+            Parent root = loader.load();
+
+            BookingForm controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root, 900, 600));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleManageBookings() {
-        // placeholder: navigate to a screen listing all Student bookings
-        // pending approval, with Approve/Reject buttons per row
-        // calls BookingManager.approveBooking(bookingId, currentUser)
-        // or BookingManager.rejectBooking(bookingId, currentUser)
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/BookingRequests.fxml"));
+            Parent root = loader.load();
+
+            BookingRequests controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setTitle("Booking Requests");
+            stage.setScene(new Scene(root, 950, 600));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleLogout() {
-        // placeholder: navigate back to LoginForm
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root, 700, 620));
+            stage.setTitle("Login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

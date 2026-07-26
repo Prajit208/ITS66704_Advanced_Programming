@@ -109,18 +109,6 @@
                         </font>
                     </Label>
 
-                    <Button text="[DEV] Admin Dashboard" onAction="#handleTempAdminAccess"
-                            prefHeight="30.0" prefWidth="286.0"
-                            style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px; -fx-background-radius: 6; -fx-cursor: hand;" />
-
-                    <Button text="[DEV] Login as Student" onAction="#handleDevStudent"
-                            prefHeight="30.0" prefWidth="286.0"
-                            style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px; -fx-background-radius: 6; -fx-cursor: hand;" />
-
-                    <Button text="[DEV] Login as Staff" onAction="#handleDevStaff"
-                            prefHeight="30.0" prefWidth="286.0"
-                            style="-fx-background-color:#757575; -fx-text-fill:white; -fx-font-size:10px; -fx-background-radius: 6; -fx-cursor: hand;" />
-
                 </VBox>
             </children>
         </StackPane>

@@ -12,10 +12,12 @@ import javafx.stage.Stage;
 import model.User;
 import model.Role;
 import utility.Validator;
+import gui.AdminDashboard;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class UserManager {
     private final PersistenceManager persistenceManager = new PersistenceManager();
 
@@ -49,12 +51,17 @@ public class UserManager {
     private TableColumn<User,String> roleColumn;
 
 
+    private User currentUser;
 
     private ObservableList<User> users =
             FXCollections.observableArrayList();
 
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
 
-// getting the all the users
+// TODO : This UserManager is a controller file, not logic , should not be in manager, move it to gui folder later
+    // getting the all the users
     @FXML
     public void initialize(){
 
@@ -282,9 +289,13 @@ public class UserManager {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminDashboard.fxml"));
             Parent root = loader.load();
+
+            AdminDashboard controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setTitle("Admin Dashboard");
-            stage.setScene(new Scene(root, 800, 500));
+            stage.setScene(new Scene(root, 950, 600));
         }
         catch (IOException e){
             e.printStackTrace();
