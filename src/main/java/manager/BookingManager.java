@@ -4,7 +4,6 @@ import model.Booking;
 import model.BookingStatus;
 import model.User;
 import model.Role;
-import manager.PersistenceManager;
 import exception.ResourceUnavailableException;
 import exception.InvalidBookingDurationException;
 import exception.UnauthorizedAccessException;
@@ -14,11 +13,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import model.SystemLogs;
 
 public class BookingManager {
 
     // Define a custom list of Booking . Keeps every booking in memory while the app is running.
     private List<Booking> bookings;
+    private  List<SystemLogs> logs;
     private PersistenceManager persistenceManager;
 
     // Constructor: runs once when a BookingManager object is created.
@@ -57,6 +58,9 @@ public class BookingManager {
 
         bookings.add(booking);
         persistenceManager.saveBookings(bookings);
+
+        logs.add(new SystemLogs(userID, "Request Booking"));
+        persistenceManager.saveSystemLogs(logs);
         return booking;
     }
 
@@ -77,6 +81,9 @@ public class BookingManager {
 
         booking.setBookingStatus(BookingStatus.CANCELLED);
         persistenceManager.saveBookings(bookings);
+
+        logs.add(new SystemLogs(requestingUser.getUserID(), "Booking Cancellation"));
+        persistenceManager.saveSystemLogs(logs);
     }
 
     // Only Staff or Admin can approve a booking (per your team's latest decision).
@@ -88,6 +95,9 @@ public class BookingManager {
         Booking booking = findBookingById(bookingID);
         booking.setBookingStatus(BookingStatus.APPROVED);
         persistenceManager.saveBookings(bookings);
+
+        logs.add(new SystemLogs(staffOrAdminUser.getUserID(), "Approve Booking"));
+        persistenceManager.saveSystemLogs(logs);
     }
 
     // Same pattern as approveBooking, just sets the opposite status.
@@ -99,6 +109,9 @@ public class BookingManager {
         Booking booking = findBookingById(bookingID);
         booking.setBookingStatus(BookingStatus.REJECTED);
         persistenceManager.saveBookings(bookings);
+
+        logs.add(new SystemLogs(staffOrAdminUser.getUserID(), "Reject Booking"));
+        persistenceManager.saveSystemLogs(logs);
 
     }
 

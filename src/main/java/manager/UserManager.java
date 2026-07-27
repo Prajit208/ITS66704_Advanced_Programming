@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.SystemLogs;
 import model.User;
 import model.Role;
 import utility.Validator;
@@ -188,7 +189,6 @@ public class UserManager {
         persistenceManager.saveUsers(
                 new ArrayList<>(users)
         );
-
         clear();
     }
 
