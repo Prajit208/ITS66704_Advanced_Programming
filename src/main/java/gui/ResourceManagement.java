@@ -25,7 +25,7 @@ public class ResourceManagement {
     private final PersistenceManager persistenceManager = new PersistenceManager();
     private final ResourceManager<Resource> resourceManager = new ResourceManager<>();
 
-    @FXML private TextField resourceIdField;
+//    @FXML private TextField resourceIdField;
     @FXML private ComboBox<String> typeBox;
     @FXML private TextField locationField;
     @FXML private TextField capacityField;
@@ -35,7 +35,8 @@ public class ResourceManagement {
     @FXML private TableView<Resource> resourceTable;
     @FXML private TableColumn<Resource, String> colResourceId;
     @FXML private TableColumn<Resource, String> colType;
-    @FXML private TableColumn<Resource, String> colLocation;
+    @FXML private ComboBox<String> locationBox;
+
     @FXML private TableColumn<Resource, Integer> colCapacity;
     @FXML private TableColumn<Resource, String> colAvailability;
     private User currentUser;
@@ -50,8 +51,8 @@ public class ResourceManagement {
 
         colResourceId.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("resourceID"));
         colType.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("type"));
-        colLocation.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("location"));
-        colCapacity.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("capacity"));
+        locationBox.setItems(FXCollections.observableArrayList(
+                "Library 2F", "CS Building B12", "Media Lab", "Main Hall"));        colCapacity.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("capacity"));
 
         colAvailability.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().isAvailabilityStatus() ? "Available" : "Booked"));
@@ -60,10 +61,10 @@ public class ResourceManagement {
 
         resourceTable.getSelectionModel().selectedItemProperty().addListener((obs, oldR, selected) -> {
             if (selected != null) {
-                resourceIdField.setText(selected.getResourceID());
-                resourceIdField.setEditable(false);
+//                resourceIdField.setText(selected.getResourceID());
+//                resourceIdField.setEditable(false);
                 typeBox.setValue(selected.getType());
-                locationField.setText(selected.getLocation());
+                locationBox.setValue(selected.getLocation());
                 capacityField.setText(String.valueOf(selected.getCapacity()));
                 rulesField.setText(String.join(", ", selected.getBookingRules()));
                 availableCheck.setSelected(selected.isAvailabilityStatus());
@@ -88,7 +89,7 @@ public class ResourceManagement {
     @FXML
     public void addResource() {
         String type = typeBox.getValue();
-        String location = locationField.getText();
+        String location = locationBox.getValue();
         String rulesText = rulesField.getText();
         List<String> rules = rulesText == null || rulesText.isBlank()
                 ? new ArrayList<>()
@@ -141,8 +142,7 @@ public class ResourceManagement {
     }
 
     private void clear() {
-        resourceIdField.clear();
-        resourceIdField.setEditable(true);
+
         typeBox.setValue(null);
         locationField.clear();
         capacityField.clear();
@@ -168,10 +168,10 @@ public class ResourceManagement {
             AdminDashboard controller = loader.getController();
             controller.setCurrentUser(currentUser);
 
-            Stage stage = (Stage) resourceIdField.getScene().getWindow();
+            Stage stage = (Stage) resourceTable.getScene().getWindow();
 
             stage.setTitle("Admin Dashboard");
-            stage.setScene(new Scene(root, 950, 600));
+            SceneNavigator.switchScene(stage, root);
 
         } catch (IOException e) {
             e.printStackTrace();

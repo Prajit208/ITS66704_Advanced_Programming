@@ -95,7 +95,7 @@ public class RegisterForm {
             // returns the scene that contains btnBack and  the Window displaying the scene  and
             // casts the window into Scene
             Stage stage = (Stage) btnBack.getScene().getWindow();
-            stage.setScene(new Scene(root ,500, 500));
+            SceneNavigator.switchScene(stage, root);
             stage.setTitle("Login");
 
         } catch (IOException e) {
@@ -118,7 +118,7 @@ public class RegisterForm {
             // returns the scene that contains btnBack and  the Window displaying the scene  and
             // casts the window into Scene
             Stage stage = (Stage) btnBack.getScene().getWindow();
-            stage.setScene(new Scene(root ,500, 500));
+            SceneNavigator.switchScene(stage, root);
             stage.setTitle("Login");
 
         } catch (IOException e) {

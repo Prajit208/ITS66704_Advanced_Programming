@@ -181,6 +181,7 @@ public class BookingForm {
             }
 
             Stage stage = (Stage) btnBack.getScene().getWindow();
+            SceneNavigator.switchScene(stage, root);
 
             stage.setTitle(
                     currentUser.getRole() == Role.ADMIN
@@ -188,7 +189,7 @@ public class BookingForm {
                             : "User Dashboard"
             );
 
-            stage.setScene(new Scene(root, 900, 600));
+
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -158,15 +158,17 @@ public class BookingRequests{
                 controller.setCurrentUser(currentUser);
             }
 
+
             Stage stage = (Stage) requestsTable.getScene().getWindow();
+
 
             stage.setTitle(
                     currentUser.getRole() == Role.ADMIN
                             ? "Admin Dashboard"
                             : "User Dashboard"
             );
+            SceneNavigator.switchScene(stage, root);
 
-            stage.setScene(new Scene(root, 950, 600));
 
         } catch (IOException e) {
             e.printStackTrace();

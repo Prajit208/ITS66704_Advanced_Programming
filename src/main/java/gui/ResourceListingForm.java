@@ -123,7 +123,7 @@ public class ResourceListingForm {
             controller.setCurrentUser(currentUser);
 
             Stage stage = (Stage) btnBook.getScene().getWindow();
-            stage.setScene(new Scene(root, 900, 600));
+            SceneNavigator.switchScene(stage, root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -155,7 +155,7 @@ public class ResourceListingForm {
 
             Stage stage = (Stage) btnBack.getScene().getWindow();
             stage.setTitle(currentUser.getRole() == Role.ADMIN ? "Admin Dashboard" : "Dashboard");
-            stage.setScene(new Scene(root, 900, 600));
+            SceneNavigator.switchScene(stage, root);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -62,7 +62,7 @@ public class LoginForm {
             Parent root = loader.load();
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root, 700, 520));
+            SceneNavigator.switchScene(stage, root);
             stage.setTitle("Register");
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,8 +83,9 @@ public class LoginForm {
             controller.setCurrentUser(user);
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
+            SceneNavigator.switchScene(stage, root);
             stage.setTitle("Admin Dashboard");
-            stage.setScene(new Scene(root, 950, 600));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,7 +100,7 @@ public class LoginForm {
             controller.setCurrentUser(user);
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root, 900, 600));
+            SceneNavigator.switchScene(stage, root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +116,7 @@ public class LoginForm {
             controller.setCurrentUser(user);
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 500));
+            SceneNavigator.switchScene(stage, root);
         } catch (IOException e) {
             e.printStackTrace();
         }

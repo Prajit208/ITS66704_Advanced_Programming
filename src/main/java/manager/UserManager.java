@@ -1,5 +1,6 @@
 package manager;
 
+import gui.SceneNavigator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -295,7 +296,7 @@ public class UserManager {
 
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setTitle("Admin Dashboard");
-            stage.setScene(new Scene(root, 950, 600));
+            SceneNavigator.switchScene(stage, root);
         }
         catch (IOException e){
             e.printStackTrace();

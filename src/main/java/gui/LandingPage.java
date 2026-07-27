@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LandingPage {
+    @FXML
+    private javafx.scene.control.Button btnGetStarted;
 
     @FXML
     private void handleGetStarted() {
@@ -16,18 +18,13 @@ public class LandingPage {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
             Parent root = loader.load();
 
-            Stage stage = (Stage) btnGetStartedStage();
-            stage.setScene(new Scene(root, 500, 500));
+            Stage stage = (Stage) btnGetStarted.getScene().getWindow();
+            SceneNavigator.switchScene(stage, root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // helper to get the current Stage from any node on this screen
-    @FXML
-    private javafx.scene.control.Button btnGetStarted;
 
-    private javafx.stage.Window btnGetStartedStage() {
-        return btnGetStarted.getScene().getWindow();
-    }
+
 }

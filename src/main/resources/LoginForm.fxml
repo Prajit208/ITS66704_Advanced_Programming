@@ -103,11 +103,7 @@
                         </VBox.margin>
                     </Separator>
 
-                    <Label text="[DEV] Quick Access" textFill="#A0AEC0">
-                        <font>
-                            <Font size="10.0" />
-                        </font>
-                    </Label>
+
 
                 </VBox>
             </children>

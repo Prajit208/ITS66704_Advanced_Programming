@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <AnchorPane prefHeight="600.0" prefWidth="950.0" style="-fx-background-color: #F4F6F8;"
             xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gui.UserDashboard">
@@ -62,7 +64,7 @@
                 <!-- Staff only, hidden by default -->
                 <Button fx:id="btnManageBookings" onAction="#handleManageBookings" text="View Booking Requests"
                         alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="42.0"
-                        visible="true" managed="true"
+                        visible="false" managed="true"
                         style="-fx-background-color: transparent; -fx-text-fill: #F5DEDE; -fx-cursor: hand; -fx-background-radius: 6;">
                     <font><Font size="13.0" /></font>
                 </Button>
@@ -139,10 +141,14 @@
                         <font><Font name="System Bold" size="15.0" /></font>
                     </Label>
 
-                    <Label fx:id="recentBookingsPlaceholder" text="No bookings yet - click Book Now to get started"
-                           textFill="#A0AEC0">
-                        <font><Font size="12.0" /></font>
-                    </Label>
+                    <TableView fx:id="recentBookingsTable" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                        <columns>
+                            <TableColumn fx:id="colRecentResource" text="Resource" prefWidth="120"/>
+                            <TableColumn fx:id="colRecentDate" text="Date" prefWidth="110"/>
+                            <TableColumn fx:id="colRecentTime" text="Time" prefWidth="130"/>
+                            <TableColumn fx:id="colRecentStatus" text="Status" prefWidth="120"/>
+                        </columns>
+                    </TableView>
                 </VBox>
 
             </VBox>
