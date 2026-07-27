@@ -3,6 +3,7 @@ package manager;
 
 import exception.UserNotFoundException;
 import model.Role;
+import model.SystemLogs;
 import model.User;
 
 import de.mkammerer.argon2.Argon2;
@@ -10,6 +11,7 @@ import de.mkammerer.argon2.Argon2Factory;
 
 
 public class AuthManager {
+    private  final PersistenceManager persistance = new PersistenceManager();
     private static final Argon2 argon2 =
             Argon2Factory.create();
     public User registerUser(
@@ -31,6 +33,8 @@ public class AuthManager {
             );
             PersistenceManager save = new PersistenceManager();
             save.saveUser(user);
+            SystemLogs log =  new SystemLogs(user.getUserID(),"User Registration");
+            save.saveSystemLog(log);
             return user;
         } catch (RuntimeException e) {
             return null;
@@ -45,7 +49,9 @@ public class AuthManager {
 
             if (user.getUsername().equalsIgnoreCase(username)) {
                 if(verify(password, user.getPasswordHash())){
-                return user;
+                    // save the logged in log
+                    persistence.saveSystemLog(new SystemLogs(user.getUserID(),"Logged In"));
+                    return user;
                 }
                 throw new UserNotFoundException("Invalid Password");
 

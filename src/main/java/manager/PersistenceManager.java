@@ -45,6 +45,12 @@ public class PersistenceManager {
         saveToFile(BOOKINGS_FILE, bookings);
     }
 
+    //save system log
+    public void saveSystemLog(SystemLogs log){
+        List<SystemLogs> logs = loadSystemLogs();
+        logs.add(log);
+        saveSystemLogs(logs);
+    }
     // saves the system logs
     public void saveSystemLogs(List<SystemLogs> logs){
         saveToFile(LOGS_FILE,logs);
@@ -111,4 +117,5 @@ public class PersistenceManager {
             return new ArrayList<>();
         }
     }
+
 }
