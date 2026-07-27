@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="950.0"
+            style="-fx-background-color:#F4F6F8;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.SystemLogger">
+
+    <children>
+        <HBox AnchorPane.topAnchor="0"
+              AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0">
+
+            <!-- SIDEBAR -->
+            <VBox prefWidth="270"
+                  spacing="10"
+                  style="-fx-background-color:#1A1A1A;">
+
+                <padding>
+                    <Insets top="28" left="18" right="18"/>
+                </padding>
+
+                <Label text="Admin Panel" textFill="white">
+                    <font>
+                        <Font name="System Bold" size="18"/>
+                    </font>
+                </Label>
+
+                <Label text="System Logs" textFill="#C9A876">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Button text="Back Dashboard"
+                        onAction="#backDashboard"
+                        prefHeight="40"
+                        maxWidth="Infinity"
+                        style="-fx-background-color:transparent;
+                               -fx-text-fill:#D0D0D0;
+                               -fx-cursor:hand;"/>
+            </VBox>
+
+            <!-- CONTENT -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                <padding>
+                    <Insets top="35" left="45" right="45"/>
+                </padding>
+
+                <Label text="System Logs">
+                    <font>
+                        <Font name="System Bold" size="26"/>
+                    </font>
+                </Label>
+
+                <HBox spacing="10">
+
+                    <Button text="Refresh Logs"
+                            onAction="#refreshLogs"
+                            prefWidth="140"
+                            style="-fx-background-color:#2196F3;
+                                   -fx-text-fill:white;"/>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <Label text="Viewing system activity"
+                           style="-fx-text-fill:#666666;"/>
+                </HBox>
+
+                <TableView fx:id="logTable"
+                           VBox.vgrow="ALWAYS">
+
+                    <columns>
+
+                        <TableColumn fx:id="colTimestamp"
+                                     text="Timestamp"
+                                     prefWidth="220"/>
+
+                        <TableColumn fx:id="colUserID"
+                                     text="User ID"
+                                     prefWidth="200"/>
+
+                        <TableColumn fx:id="colAction"
+                                     text="Action"
+                                     prefWidth="450"/>
+
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+        </HBox>
+    </children>
+
+</AnchorPane>

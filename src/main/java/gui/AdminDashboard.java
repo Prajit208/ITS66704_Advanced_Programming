@@ -1,7 +1,9 @@
 package gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -97,9 +99,19 @@ public class AdminDashboard {
     }
 
     @FXML
-    private void handleViewLogs() {
-        //show system log contents
-        // calls SystemLogger.getLogs()
+    private void handleViewLogs(ActionEvent actionEvent) {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SystemLog.fxml"));
+            Parent root = loader.load();
+            Node node = (Node)actionEvent.getSource();// gets the source
+            Stage stage = (Stage) node.getScene().getWindow();//gets the scene and window of source
+            stage.setScene(new Scene(root, 950, 600));
+            stage.setTitle("System Logs");
+            stage.show();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -108,10 +120,10 @@ public class AdminDashboard {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(new Scene(root, 700, 620));
             stage.setTitle("Login");
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

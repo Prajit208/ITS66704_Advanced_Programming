@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
-// Class for the system logs
-public class SystemLogs {
 
+// Class for the system logs
+public class SystemLogs implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String logID;
     private String userID;
     private LocalDateTime timestamp;
