@@ -105,5 +105,15 @@ public class AdminDashboard {
     @FXML
     private void handleLogout() {
         // return to LoginForm.fxml
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginForm.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root, 700, 620));
+            stage.setTitle("Login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
