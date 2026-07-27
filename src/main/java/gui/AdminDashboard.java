@@ -3,6 +3,7 @@ package gui;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -137,8 +138,6 @@ public class AdminDashboard {
         colRecentResource.setCellValueFactory(data -> {
             String resId = data.getValue().getResourceID();
             String type = resourceTypeById.get(resId);
-
-            // If type exists, combine as "Type (ID)", otherwise fallback to just the ID
             String displayString = (type != null) ? type + " (" + resId + ")" : resId;
             return new SimpleStringProperty(displayString);
         });
@@ -173,7 +172,6 @@ public class AdminDashboard {
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             SceneNavigator.switchScene(stage, root);
             stage.setTitle("Manage Resources");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -190,9 +188,7 @@ public class AdminDashboard {
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             SceneNavigator.switchScene(stage, root);
-
             stage.setTitle("Booking Requests");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -210,7 +206,6 @@ public class AdminDashboard {
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             SceneNavigator.switchScene(stage, root);
             stage.setTitle("Manage Users");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -218,8 +213,16 @@ public class AdminDashboard {
 
     @FXML
     private void handleViewLogs() {
-        // show system log contents
-        // calls SystemLogger.getLogs()
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SystemLog.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            SceneNavigator.switchScene(stage, root);
+            stage.setTitle("System Logs");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
