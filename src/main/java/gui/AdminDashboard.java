@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -212,12 +212,18 @@ public class AdminDashboard {
     }
 
     @FXML
-    private void handleViewLogs() {
+    private void handleViewLogs(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/SystemLog.fxml"));
             Parent root = loader.load();
 
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            SystemLogger controller = loader.getController();
+            if (currentUser != null) {
+                controller.setCurrentUser(currentUser);
+            }
+
+            Node node = (Node) actionEvent.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
             SceneNavigator.switchScene(stage, root);
             stage.setTitle("System Logs");
         } catch (IOException e) {
