@@ -17,22 +17,32 @@
         <StackPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <VBox alignment="CENTER" maxWidth="600.0" spacing="24.0" StackPane.alignment="CENTER">
+                <VBox alignment="CENTER" maxWidth="620.0" spacing="16.0" StackPane.alignment="CENTER">
 
-                    <Label text="Campus Resource Booking System" textFill="white"
+                    <!-- Main Brand Name -->
+                    <Label text="CampusConnect" textFill="white"
                            textAlignment="CENTER" wrapText="true">
                         <font>
-                            <Font name="System Bold" size="38.0" />
+                            <Font name="System Bold" size="48.0" />
                         </font>
                     </Label>
 
-                    <Label text="Book study rooms, labs, and event spaces with ease"
-                           textFill="#C9A876" textAlignment="CENTER" wrapText="true">
+                    <!-- Sub-heading System Title (Soft Gray) -->
+                    <Label text="Campus Resource Booking System" textFill="#D1D5DB"
+                           textAlignment="CENTER" wrapText="true">
                         <font>
-                            <Font size="16.0" />
+                            <Font name="System Bold" size="22.0" />
+                        </font>
+                    </Label>
+
+                    <!-- Meaningful Mission Tagline -->
+                    <Label text="“Connecting students and staff with the spaces they need to collaborate, innovate, and succeed.”"
+                           textFill="#E2E8F0" textAlignment="CENTER" wrapText="true" style="-fx-font-style: italic;">
+                        <font>
+                            <Font size="15.0" />
                         </font>
                         <VBox.margin>
-                            <Insets bottom="10.0" />
+                            <Insets bottom="12.0" top="4.0" />
                         </VBox.margin>
                     </Label>
 

@@ -94,11 +94,11 @@ public class PersistenceManager {
             ));
 
             users.add(new User(
-                    "Backup Administrator",
-                    "admin2",
-                    AuthManager.hash("admin456"),      // Ideally store a hashed password
-                    "admin2@system.com",
-                    Role.ADMIN
+                    "Staff",
+                    "staff1",
+                    AuthManager.hash("staff1234"),      // Ideally store a hashed password
+                    "staff1@system.com",
+                    Role.STAFF
             ));
 
             saveUsers(users);// creates users.dat with two users

@@ -29,11 +29,14 @@
                     </padding>
 
                     <VBox alignment="CENTER" spacing="4.0">
-                        <Label text="Welcome Back">
-                            <font>
-                                <Font name="System Bold" size="22.0" />
-                            </font>
-                        </Label>
+                        <Label text="CampusConnect"
+                               style="-fx-font-size:28px;
+              -fx-font-weight:bold;
+              -fx-text-fill:#A61B29;"/>
+                        <Label text="Welcome Back"
+                               style="-fx-font-size:16px;
+              -fx-text-fill:#666;"/>
+
                         <Label text="Please sign in to continue" textFill="#718096">
                             <font>
                                 <Font size="13.0" />
@@ -103,6 +106,24 @@
                         </VBox.margin>
                     </Separator>
 
+                    <!-- Quick Demo Credentials Box -->
+                    <VBox alignment="CENTER" spacing="4.0" style="-fx-background-color: #EDF2F7; -fx-background-radius: 6; -fx-padding: 8;">
+                        <Label text="Demo Credentials" textFill="#4A5568">
+                            <font>
+                                <Font name="System Bold" size="11.0" />
+                            </font>
+                        </Label>
+                        <Label text="Admin: admin1 / admin1234" textFill="#718096">
+                            <font>
+                                <Font size="11.0" />
+                            </font>
+                        </Label>
+                        <Label text="Staff: staff1 / staff1234" textFill="#718096">
+                            <font>
+                                <Font size="11.0" />
+                            </font>
+                        </Label>
+                    </VBox>
 
 
                 </VBox>
