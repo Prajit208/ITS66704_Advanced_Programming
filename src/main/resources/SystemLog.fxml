@@ -18,8 +18,8 @@
               AnchorPane.rightAnchor="0">
 
             <!-- SIDEBAR -->
-            <VBox prefWidth="270"
-                  spacing="10"
+            <VBox prefWidth="230"
+                  spacing="4"
                   style="-fx-background-color:#1A1A1A;">
 
                 <padding>
