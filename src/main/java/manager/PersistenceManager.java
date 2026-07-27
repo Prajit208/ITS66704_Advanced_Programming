@@ -1,9 +1,6 @@
 package manager;
 
-import model.Booking;
-import model.Resource;
-import model.Role;
-import model.User;
+import model.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ public class PersistenceManager {
     private static final String USERS_FILE = "data/users.dat";
     private static final String RESOURCES_FILE = "data/resources.dat";
     private static final String BOOKINGS_FILE = "data/bookings.dat";
+    private static final String LOGS_FILE = "data/system_logs.dat";
 
     // ---------- USERS ----------
 
@@ -47,6 +45,16 @@ public class PersistenceManager {
         saveToFile(BOOKINGS_FILE, bookings);
     }
 
+    // saves the system logs
+    public void saveSystemLogs(List<SystemLogs> logs){
+        saveToFile(LOGS_FILE,logs);
+    }
+
+    //load the system logs
+    public List<SystemLogs> loadSystemLogs(){
+        return (List<SystemLogs>) loadFromFile(LOGS_FILE);
+    }
+
     @SuppressWarnings("unchecked")
     public List<Booking> loadBookings() {
         return (List<Booking>) loadFromFile(BOOKINGS_FILE);
@@ -63,6 +71,7 @@ public class PersistenceManager {
             e.printStackTrace();
         }
     }
+    // creates a file if not exists
     public void initializeUsersFile() {
         File file = new File(USERS_FILE);
         file.getParentFile().mkdirs(); // ensure data/ folder exists
