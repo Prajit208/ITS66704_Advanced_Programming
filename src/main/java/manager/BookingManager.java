@@ -19,7 +19,7 @@ public class BookingManager {
 
     // Define a custom list of Booking . Keeps every booking in memory while the app is running.
     private List<Booking> bookings;
-    private  List<SystemLogs> logs;
+    private  List<SystemLogs> logs = new ArrayList<>();
     private PersistenceManager persistenceManager;
 
     // Constructor: runs once when a BookingManager object is created.
