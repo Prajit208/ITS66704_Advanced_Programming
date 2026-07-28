@@ -1,20 +1,18 @@
-package manager;
+package gui;
 
-import gui.SceneNavigator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.SystemLogs;
+import manager.AuthManager;
+import manager.PersistenceManager;
 import model.User;
 import model.Role;
 import utility.Validator;
-import gui.AdminDashboard;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 import manager.BookingManager;
 import manager.PersistenceManager;
-import manager.UserManager;
 import model.Booking;
 import model.BookingStatus;
 import model.Resource;
