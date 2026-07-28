@@ -118,7 +118,7 @@
                                 <Font size="11.0" />
                             </font>
                         </Label>
-                        <Label text="Staff: staff1 / staff1234" textFill="#718096">
+                        <Label text="Staff: staff / staff1234" textFill="#718096">
                             <font>
                                 <Font size="11.0" />
                             </font>

@@ -27,7 +27,6 @@ public class ResourceManagement {
 
 //    @FXML private TextField resourceIdField;
     @FXML private ComboBox<String> typeBox;
-    @FXML private TextField locationField;
     @FXML private TextField capacityField;
     @FXML private TextField rulesField;
     @FXML private CheckBox availableCheck;
@@ -144,7 +143,7 @@ public class ResourceManagement {
     private void clear() {
 
         typeBox.setValue(null);
-        locationField.clear();
+        locationBox.setValue(null);
         capacityField.clear();
         rulesField.clear();
         availableCheck.setSelected(false);
