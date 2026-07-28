@@ -46,6 +46,7 @@ public class SystemLogger implements Initializable {
         this.currentUser = user;
     }
 
+    // intialized the table columns and loads the cell elements
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colTimestamp.setCellValueFactory(data -> {
@@ -71,6 +72,7 @@ public class SystemLogger implements Initializable {
         loadLogs();
     }
 
+    // redirects back to the dashboard
     @FXML
     private void backDashboard(ActionEvent actionEvent) {
         try {

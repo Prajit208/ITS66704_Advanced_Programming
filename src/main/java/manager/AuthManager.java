@@ -32,7 +32,9 @@ public class AuthManager {
                     role
             );
             PersistenceManager save = new PersistenceManager();
+            // saving the user info
             save.saveUser(user);
+            // saving the registration logs
             SystemLogs log =  new SystemLogs(user.getUserID(),"User Registration");
             save.saveSystemLog(log);
             return user;
@@ -44,7 +46,7 @@ public class AuthManager {
 // handles the login
     public User login(String username, String password) {
         PersistenceManager persistence = new PersistenceManager();
-
+        // loops through all the loaded User List and authenticates the user
         for (User user : persistence.loadUsers()) {
 
             if (user.getUsername().equalsIgnoreCase(username)) {
@@ -72,7 +74,7 @@ public class AuthManager {
         );
     }
 
-
+    // verifies the password and returns a boolean value
     public static boolean verify(
             String password,
             String hash) {

@@ -103,7 +103,7 @@ public class UserManager {
 
 
         loadUsers();
-        //everytime you select an item in the table the input fields gets autmatically filled
+        //everytime you select an item in the table it populates the input fields when a user is selected
         userTable.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, oldUser, selectedUser) -> {
@@ -135,7 +135,7 @@ public class UserManager {
 
 
     private void loadUsers(){
-
+        // clears the input fields
         users.clear();
 
         List<User> loadedUsers = persistenceManager.loadUsers();
@@ -161,7 +161,7 @@ public class UserManager {
                 new ArrayList<>(users)
         );
 
-
+        // if the error is not null means its not valid the alert message will be shown
         if(error != null){
             // creates an alert object
             Alert alert = new Alert(
@@ -185,7 +185,7 @@ public class UserManager {
 
 
         users.add(user);
-
+        // saving the user
         persistenceManager.saveUsers(
                 new ArrayList<>(users)
         );
@@ -260,7 +260,7 @@ public class UserManager {
                 userTable.getSelectionModel()
                         .getSelectedItem();
 
-
+        // the user is selected the user will be deleted
         if(selected != null){
 
             users.remove(selected);
